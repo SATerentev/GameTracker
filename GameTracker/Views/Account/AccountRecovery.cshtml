@@ -1,0 +1,13 @@
+﻿<h2 class="mb-5">Восстановление аккаунта</h2>
+
+<div class="mb-5">
+    <form asp-controller="AccountRecovery" asp-action="Recovery" method="post">
+        <button type="submit" class="btn btn-success">Восстановить аккаунт</button>
+    </form>
+</div>
+
+<div>
+    <form asp-action="Logout" asp-controller="Auth" method="post">
+        <button type="submit" class="btn btn-danger">Выйти из аккаунта</button>
+    </form>
+</div>

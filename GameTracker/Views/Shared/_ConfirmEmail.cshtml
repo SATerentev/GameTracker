@@ -1,0 +1,11 @@
+﻿@model GameTracker.ViewModel.Account.ConfirmEmailViewModel
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<form asp-action="ConfirmEmail" asp-controller="Profile" method="post">
+    <div class="mb-2">
+        <label for="Code" class="form-label">Код подтверждения почты</label>
+        <input asp-for="Code" class="form-control text-white bg-dark" id="login" required />
+    </div>
+
+    <button type="submit" class="btn btn-success text-white mt-2 w-100 btn-lg rounded-3">Подтвердить почту</button>
+</form>
