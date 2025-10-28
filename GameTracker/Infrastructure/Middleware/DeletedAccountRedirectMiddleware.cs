@@ -22,7 +22,7 @@ namespace GameTracker.Infrastructure.Middleware
                 if (user.FindFirstValue("Status").ToString() == UserStatus.Deleted.ToString())
                 {
                     if (context.Request.Path.StartsWithSegments("/AccountRecovery") ||
-                        context.Request.Path.StartsWithSegments("/Auth/Logout") ||
+                        context.Request.Path.StartsWithSegments("/Login/Logout") ||
                         context.Request.Path.Value.EndsWith(".css") ||
                         context.Request.Path.Value.EndsWith(".js") ||
                         context.Request.Path.Value.EndsWith(".png") ||

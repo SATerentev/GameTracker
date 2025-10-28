@@ -12,16 +12,16 @@ namespace GameTracker.Controllers.Account
     {
         private readonly IUserAuthService _userAuthService;
         private readonly IUpdateProfileService _updateProfileService;
-        private readonly IUserStatusService _deleteUserService;
+        private readonly IUserStatusService _userStatusService;
         private readonly IAuthenticationService _authenticationService;
         private readonly IAccountVerificationService _accountVerificationService;
 
         public ProfileController(IUserAuthService userAuthService, IUpdateProfileService updateProfile,
-            IUserStatusService deleteUserService, IAuthenticationService authenticationService, IAccountVerificationService accountVerificationService)
+            IUserStatusService userStatusService, IAuthenticationService authenticationService, IAccountVerificationService accountVerificationService)
         {
             _userAuthService = userAuthService;
             _updateProfileService = updateProfile;
-            _deleteUserService = deleteUserService;
+            _userStatusService = userStatusService;
             _authenticationService = authenticationService;
             _accountVerificationService = accountVerificationService;
         }
@@ -39,6 +39,7 @@ namespace GameTracker.Controllers.Account
             Console.WriteLine(User.FindFirstValue("Status").ToString());
             Console.WriteLine(user.Status.ToString());
             Console.WriteLine(user.Status.ToString() == User.FindFirstValue("Status").ToString());
+            Console.WriteLine(User.FindFirstValue(ClaimTypes.Role.ToString()));
 
             // =========================
 
@@ -79,9 +80,12 @@ namespace GameTracker.Controllers.Account
         }
 
         [HttpPost]
-        public IActionResult DeleteUser(Guid id)
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteUser()
         {
-            _deleteUserService.DeleteUser(_userAuthService.GetUser(id));
+            var id = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            _userStatusService.DeleteUser(_userAuthService.GetUser(id));
             _authenticationService.SignOutAuth();
             return RedirectToAction("Index", "Home");
         }

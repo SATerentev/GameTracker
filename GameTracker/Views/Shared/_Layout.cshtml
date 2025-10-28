@@ -2,7 +2,7 @@
 <html lang="ru">
 
     @section Scripts {
-        <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
     }
 
 <head>
@@ -12,25 +12,33 @@
     <script type="importmap"></script>
     <!---<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/GameTracker.styles.css" asp-append-version="true" /> -->
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="@Url.Content("~/css/site.css")" />
 </head>
 
 <body>
     <header>
-        <button class="nav_button" asp-action="Auth" asp-controller="Auth">GameTracker</button>
+        <div class="navbar">
+            <a asp-action="Index" asp-controller="Home"><button class="main_button">GameTracker</button></a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div>
+                    <a asp-action="Page" asp-controller="Profile"><button class="navbar_button">@User.Identity.Name</button></a>
+                </div>
+            }
+            else
+            {
+                <div>
+                    <a asp-action="Login" asp-controller="Login"><button class="navbar_button">Вход</button></a>
+                    <a asp-action="Registration" asp-controller="Registration"><button class="navbar_button">Регистрация</button></a>
+                </div>
+            }
+        </div>
     </header>
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    <main>
+        @RenderBody()
+    </main>
 
-    <footer>
-        <div class="container">
-            &copy; @DateTime.Now.Year - GameTracker - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

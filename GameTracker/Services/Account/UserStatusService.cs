@@ -24,5 +24,11 @@ namespace GameTracker.Services.Account
             user.MarkAsNotDeleted();
             _userRepository.UpdateUser(user);
         }
+
+        public void MakeModerator(User user)
+        {
+            user.MakeModerator();
+            _userRepository.UpdateUser(user);
+        }
     }
 }

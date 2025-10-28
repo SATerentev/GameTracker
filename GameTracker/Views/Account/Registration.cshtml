@@ -5,40 +5,30 @@
     ViewData["Title"] = "Регистрация";
 }
 
-<div class="card text-white bg-dark mx-auto mt-5 w-25">
-    <div class="card-header text-center">
-        <h2 class="card-title">Регистрация пользователя</h2>
-    </div>
-
-    <div class="card-body">
-        <form asp-area="" asp-controller="Register" asp-action="Registration" method="post">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="mb-2">
-                <label for="displayName" class="form-label">Отображаемое имя</label>
-                <input asp-for="Nickname" class="form-control bg-dark text-white" id="displayName" required>
-                <span asp-validation-for="Nickname" class="text-danger"></span>
-            </div>
-            <div class="mb-2">
-                <label for="email" class="form-label">Email</label>
-                <input asp-for="Email" type="email" class="form-control bg-dark text-white" id="email" required>
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="mb-2">
-                <label for="username" class="form-label">Логин</label>
-                <input asp-for="Login" class="form-control bg-dark text-white" id="username" required>
-                <span asp-validation-for="Login" class="text-danger"></span>
-            </div>
-            <div class="mb-2">
-                <label for="password" class="form-label">Пароль</label>
-                <input asp-for="Password" type="password" class="form-control bg-dark text-white" id="password" required>
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="mb-2">
-                <label for="confirmPassword" class="form-label">Подтверждение пароля</label>
-                <input asp-for="ConfirmPassword" type="password" class="form-control bg-dark text-white" id="confirmPassword" required>
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-success text-white mt-2 w-100 btn-lg rounded-3">Зарегистрироваться</button>
-        </form>
-    </div>
+<div class="form_window">
+    <form asp-action="Register" asp-controller="Registration" method="post">
+        <div asp-validation-summary="All" style="color: red"></div>
+        <h2>Регистрация</h2>
+        <div class="form_label">
+            <label asp-for="Nickname">Отображаемое имя: </label>
+            <input asp-for="Nickname" />
+        </div>
+        <div class="form_label">
+            <label asp-for="Login">Логин: </label>
+            <input asp-for="Login" />
+        </div>
+        <div class="form_label">
+            <label asp-for="Email">Почта: </label>
+            <input asp-for="Email" />
+        </div>
+        <div class="form_label">
+            <label asp-for="Password">Пароль: </label>
+            <input asp-for="Password" />
+        </div>
+        <div class="form_label">
+            <label asp-for="ConfirmPassword">Подтверждение пароля: </label>
+            <input asp-for="ConfirmPassword" />
+        </div>
+        <button class="button_submit" type="submit">Зарегистрироваться</button>
+    </form>
 </div>
