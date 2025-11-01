@@ -7,15 +7,17 @@
 
 <div class="form_window">
     <form asp-action="Login" asp-controller="Login" method="post">
-        <div asp-validation-summary="All" style="color: red"></div>
+        <div asp-validation-summary="ModelOnly" style="color: red"></div>
         <h2>Авторизация</h2>
         <div class="form_label">
             <label asp-for="Login">Логин: </label>
             <input asp-for="Login" />
+            <span asp-validation-for="Login" style="color: red"></span>
         </div>
         <div class="form_label">
             <label asp-for="Password">Пароль: </label>
             <input asp-for="Password" />
+            <span asp-validation-for="Password" style="color: red"></span>
         </div>
         <button class="button_submit" type="submit">Войти</button>
     </form>
