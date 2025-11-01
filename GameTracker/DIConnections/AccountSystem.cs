@@ -1,7 +1,6 @@
 ﻿using GameTracker.Infrastructure;
 using GameTracker.Interfaces;
 using GameTracker.Interfaces.Account;
-using GameTracker.Services;
 using GameTracker.Services.Account;
 
 namespace GameTracker.DIConnections
@@ -17,6 +16,7 @@ namespace GameTracker.DIConnections
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IAuthenticationService, FrameworkAuthenticationService>();
             builder.Services.AddScoped<IAccountVerificationService, AccountVerificationService>();
+            builder.Services.AddScoped<IPasswordRecoveryService, PassowrdRecoveryService>();
         }
     }
 }

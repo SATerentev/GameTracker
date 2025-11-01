@@ -3,6 +3,6 @@
     public interface IEmailService
     {
         void SendConfirmationCode(string email, string code);
-        void SendPasswordResetCode(string email, string code);
+        void SendRecoveryCode(string email, string code);
     }
 }

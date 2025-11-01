@@ -1,4 +1,5 @@
 ﻿using GameTracker.Interfaces;
+using System.Security.Cryptography;
 
 namespace GameTracker.Services
 {
@@ -19,9 +20,18 @@ namespace GameTracker.Services
 
             return result;
         }
+
+        public string GenerateRecoveryCode(Guid userId)
+        {
+            int min = 100000;
+            int max = 999999;
+            int code = RandomNumberGenerator.GetInt32(min, max + 1);
+            return code.ToString();
+        }
     }
 }
 
+// GenerateConfirmationCode explication:
 // Чет хуево по читаемости, но я даже хз как лучше сделать
 // Лучше распишу, как метод работает:
 /*

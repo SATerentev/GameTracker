@@ -8,5 +8,6 @@ namespace GameTracker.Interfaces.Account
         User Login(UserLoginViewModel userLoginData);
         User GetUser(Guid id);
         User GetUser(string login);
+        User GetUserByEmail(string email);
     }
 }

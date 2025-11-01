@@ -9,5 +9,6 @@ namespace GameTracker.Interfaces
         void DeleteUser(User user);
         User GetUser(string Login);
         User GetUser(Guid id);
+        User GetUserByEmail(string email);
     }
 }

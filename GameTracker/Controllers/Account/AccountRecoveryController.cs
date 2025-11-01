@@ -1,22 +1,29 @@
 ﻿using GameTracker.Interfaces;
 using GameTracker.Interfaces.Account;
+using GameTracker.ViewModel.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace GameTracker.Controllers.Account
 {
-    public class AccountRecovery : Controller
+    public class AccountRecoveryController : Controller
     {
         IUserAuthService _userAuthService;
         IUserStatusService _userStatusService;
         IAuthenticationService _authenticationService;
+        IPasswordRecoveryService _passwordRecoveryService;
+        IUpdateProfileService _userUpdateProfile;
 
-        public AccountRecovery(IUserAuthService userAuthService, IUserStatusService userStatusService, IAuthenticationService authenticationService)
+        public AccountRecoveryController(IUserAuthService userAuthService, IUserStatusService userStatusService, 
+            IAuthenticationService authenticationService, IPasswordRecoveryService passwordRecoveryService, 
+            IUpdateProfileService userUpdateProfile)
         {
             _userAuthService = userAuthService;
             _userStatusService = userStatusService;
             _authenticationService = authenticationService;
+            _passwordRecoveryService = passwordRecoveryService;
+            _userUpdateProfile = userUpdateProfile;
         }
 
         public IActionResult Index()

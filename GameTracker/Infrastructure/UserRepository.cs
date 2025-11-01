@@ -20,6 +20,11 @@ namespace GameTracker.Infrastructure
             return _context.Users.Include(u => u.Password).SingleOrDefault(u => u.Id == id);
         }
 
+        public User? GetUserByEmail(string email)
+        {
+            return _context.Users.Include(u => u.Password).SingleOrDefault(u => u.Email == email);
+        }
+
         public void AddUser(User user)
         {
             _context.Users.Add(user);

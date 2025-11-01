@@ -46,5 +46,12 @@ namespace GameTracker.Services.Account
 
             return user;
         }
+
+        public void ResetPassword(User user, string newPassword)
+        {
+            var newHashedPassword = _hashService.HashPassword(newPassword, user.Password.Salt);
+            user.ChangePassword(newHashedPassword);
+            _userRepository.UpdateUser(user);
+        }
     }
 }

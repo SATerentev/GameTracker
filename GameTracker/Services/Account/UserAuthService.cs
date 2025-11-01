@@ -26,6 +26,11 @@ namespace GameTracker.Services.Account
             return _userRepository.GetUser(login);
         }
 
+        public User GetUserByEmail(string email)
+        {
+            return _userRepository.GetUserByEmail(email);
+        }
+
         public User? Login(UserLoginViewModel userData)
         {
             var user = _userRepository.GetUser(userData.Login);
