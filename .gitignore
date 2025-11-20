@@ -367,4 +367,3 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /GameTracker/email_log.txt
-/GameTracker/wwwroot/avatars/default/1.png
