@@ -29,7 +29,7 @@ namespace GameTracker.Controllers
 
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "Пользователь с такими логином не найден");
+                ModelState.AddModelError(string.Empty, "Пользователь с такими логином не найден.");
                 return View("~/Views/Account/Login.cshtml", userData);
             }
 

@@ -20,7 +20,7 @@ namespace GameTracker.Entity.Account
         public User(UserRegistrationViewModel userRegistrationData, HashedPassword hashedPassword)
         {
             Id = Guid.NewGuid();
-            AvatarPath = @"\img\Avatar.jpg";
+            AvatarPath = @"\avatars\default\1.png";
             Nickname = userRegistrationData.Nickname;
             Login = userRegistrationData.Login;
             Password = hashedPassword;
