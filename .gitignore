@@ -368,3 +368,13 @@ MigrationBackup/
 FodyWeavers.xsd
 /GameTracker/email_log.txt
 /GameTracker/wwwroot/avatars/default/1.png
+/GameTracker/global.json
+/GameTracker/Migrations/20251210083916_initial.cs
+/GameTracker/Migrations/20251210083916_initial.Designer.cs
+/GameTracker/Migrations/20251223174113_GamesSystem.cs
+/GameTracker/Migrations/20251223174113_GamesSystem.Designer.cs
+/GameTracker/Migrations/20251223174218_Games.cs
+/GameTracker/Migrations/20251223174218_Games.Designer.cs
+/GameTracker/Migrations/20251225145534_genreUpdate.cs
+/GameTracker/Migrations/20251225145534_genreUpdate.Designer.cs
+/GameTracker/Migrations/AppDbContextModelSnapshot.cs

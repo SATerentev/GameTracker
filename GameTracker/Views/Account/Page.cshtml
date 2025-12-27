@@ -1,4 +1,4 @@
-﻿@model GameTracker.Entity.Account.User
+﻿@model GameTracker.ViewModel.Account.AccountPageViewModel;
 
 @{
     ViewData["Title"] = "Профиль";
@@ -7,23 +7,14 @@
 <div class="profile_page">
     <div class="profile_container">
         <div class="profile_header">
-            <img class="profile_avatar" src="@Model.AvatarPath" />
             <h3>@Model.Nickname</h3>
         </div>
         <div class="profile_main">
-            <p style="margin-bottom: 20px">Пройдено игр: (( Здесь добавить данные от модели ))</p>
+            <p style="margin-bottom: 20px">Пройдено игр: @Model.UserGames.Count</p>
             <p>Логин: @Model.Login</p>
             <p style="margin-bottom: 20px">Email: @Model.Email</p>
-            <p>Друзья:</p>
-            <!--
-            <ul>
-                foreach (var friend in Model.Friends)
-                {
-                        <li>fried.Nickname</li> + Ссылка на профиль друга
-                }
-            </ul>
-            -->
             <p>Роль: @Model.Role</p>
+            <p>Статус: @Model.Status</p>
         </div>
         <form asp-action="Logout" asp-controller="Login" method="post">
             <button class="button_default">Выйти из аккаунта</button>
@@ -55,8 +46,7 @@
     }
     else
     {
-        <div class="library_window">
-            @await Html.PartialAsync("~/Views/Shared/_LibraryPartial.cshtml")
-        </div>
+        var libraryViewModel = new GameTracker.ViewModel.Games.UserGameLibraryViewModel(Model.UserGames);
+        @await Html.PartialAsync("~/Views/Shared/_UserGameLibraryPartial.cshtml", libraryViewModel)
     }
 </div>

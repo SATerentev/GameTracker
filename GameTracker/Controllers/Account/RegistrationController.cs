@@ -31,7 +31,7 @@ namespace GameTracker.Controllers.Account
 
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "Пользователь с таким логином уже существует");
+                ModelState.AddModelError(string.Empty, "Пользователь с таким логином или email уже существует");
                 return View("~/Views/Account/Registration.cshtml", userData);
             }
 

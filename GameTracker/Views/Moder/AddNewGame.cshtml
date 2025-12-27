@@ -1,0 +1,67 @@
+﻿@model GameTracker.ViewModel.Games.AddGameToCatalogViewModel
+
+<div class="form_window">
+    <form asp-action="AddGame" asp-controller="Catalog" method="post" novalidate>
+        <div asp-validation-summary="ModelOnly" style="color: red"></div>
+
+        <h2>Добавить новую игру</h2>
+
+        <div class="form_label">
+            <label asp-for="Name">Название игры: </label>
+            <input asp-for="Name" />
+            <span asp-validation-for="Name" style="color: red"></span>
+        </div>
+
+        <div class="form_label">
+            <label asp-for="Link">Ссылка на игру: </label>
+            <input asp-for="Link" />
+            <span asp-validation-for="Link" style="color: red"></span>
+        </div>
+
+        <div class="form_label">
+            <label asp-for="Description">Описание игры: </label>
+            <textarea asp-for="Description"></textarea>
+            <span asp-validation-for="Description" style="color: red"></span>
+        </div>
+
+        <div class="form_label">
+            <label asp-for="ImageUrl">Ссылка на изображение: </label>
+            <input asp-for="ImageUrl" />
+            <span asp-validation-for="ImageUrl" style="color: red"></span>
+        </div>
+
+        <div class="form_label">
+            <label asp-for="DeveloperName">Разработчик: </label>
+            <input asp-for="DeveloperName" />
+            <span asp-validation-for="DeveloperName" style="color: red"></span>
+        </div>
+
+        <div class="form_label">
+            <label asp-for="PublisherName">Издатель: </label>
+            <input asp-for="PublisherName" />
+            <span asp-validation-for="PublisherName" style="color: red"></span>
+        </div>
+
+        <div class="form_label">
+            <label asp-for="Genre">Жанр: </label>
+            <select asp-for="Genre">
+                <option value="Action">Action</option>
+                <option value="Adventure">Adventure</option>
+                <option value="RPG">RPG</option>
+                <option value="Shooter">Shooter</option>
+                <option value="Strategy">Strategy</option>
+            </select>
+            <span asp-validation-for="Genre" style="color: red"></span>
+        </div>
+
+        <div class="form_label">
+            <label asp-for="ReleaseDate">Дата релиза: </label>
+            <input asp-for="ReleaseDate" type="date" />
+            <span asp-validation-for="ReleaseDate" style="color: red"></span>
+        </div>
+
+        <div>
+            <button class="button_submit" type="submit">Добавить игру</button>
+        </div>
+    </form>
+</div>

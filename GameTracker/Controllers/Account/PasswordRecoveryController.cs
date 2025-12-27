@@ -24,7 +24,7 @@ namespace GameTracker.Controllers.Account
         }
 
         [HttpPost]
-        public IActionResult SendCode(EmailViewModel data)
+        public IActionResult SendCode(RequestPasswordResetViewModel data)
         {
             var user = _userAuthService.GetUserByEmail(data.Email);
 

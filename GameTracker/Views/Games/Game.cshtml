@@ -1,0 +1,21 @@
+﻿@model GameTracker.ViewModel.Games.GameViewModel
+
+<div>
+    <img src="@Model.ImageUrl" />
+    <h2>@Model.Name</h2>
+    <p>Жанр: @Model.Genre.ToString()</p>
+    <p>Дата выпуска: @Model.ReleaseDate.ToString("dd.MM.yyyy")</p>
+    <p>Описание: @Model.Description</p>
+    <p>Разработчик: @Model.DeveloperName</p>
+    <p>Издатель: @Model.PublisherName</p>
+
+    @if (Model.Status == GameTracker.Entity.Games.GameStatus.Nothing)
+    {
+        <p>Игры нет в вашей библиотеке</p>
+    }
+    else
+    {
+        <p>@Model.Status</p>
+        <p>Ваша оценка - @Model.Rate</p>
+    }
+</div>

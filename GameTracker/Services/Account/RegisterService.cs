@@ -16,9 +16,11 @@ namespace GameTracker.Services.Account
             _hashPasswordService = hashPasswordService;
         }
 
-        public User? Register(UserRegistrationViewModel userData)
+        public User? Register(UserRegistrationViewModel userData) // Можно будет улучшить, сделав возврат не null, а какого-то результата с ошибкой
         {
             if (_userRepository.GetUser(userData.Login) != null)
+                return null;
+            if (_userRepository.GetUserByEmail(userData.Email) != null)
                 return null;
 
             var hashedPassword = _hashPasswordService.HashPassword(userData.Password);

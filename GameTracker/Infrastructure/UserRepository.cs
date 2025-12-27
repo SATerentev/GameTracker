@@ -31,13 +31,7 @@ namespace GameTracker.Infrastructure
             _context.SaveChanges();
         }
 
-        public void DeleteUser(User user)
-        {
-            _context.Users.Update(user);
-            _context.SaveChanges();
-        }
-
-        public User? UpdateUser(User user)
+        public User UpdateUser(User user)
         {
             _context.Users.Update(user);
             _context.SaveChanges();

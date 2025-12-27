@@ -8,10 +8,9 @@ namespace GameTracker.Entity.Account
     {
         public Guid Id { get; private set; }
         public string Nickname { get; private set; }
-        public string AvatarPath { get; private set; }
         public string Login { get; private set; }
         public string Email { get; private set; }
-        public HashedPassword Password { get; private set; }    
+        public HashedPassword Password { get; private set; }
         public DateTime RegistrationDate { get; private set; }
         public UserStatus Status { get; private set; }
         public UserRole Role { get; private set; }
@@ -20,7 +19,6 @@ namespace GameTracker.Entity.Account
         public User(UserRegistrationViewModel userRegistrationData, HashedPassword hashedPassword)
         {
             Id = Guid.NewGuid();
-            AvatarPath = @"\avatars\default\1.png";
             Nickname = userRegistrationData.Nickname;
             Login = userRegistrationData.Login;
             Password = hashedPassword;
@@ -31,7 +29,7 @@ namespace GameTracker.Entity.Account
             DeleteDate = DateTime.MaxValue; 
         }
 
-        public User() { }
+        public User() { } // Вроде без него EF Core не работает. Не удалять.
 
         public void MarkAsDeleted()
         {
@@ -48,8 +46,6 @@ namespace GameTracker.Entity.Account
         public void ChangeNickname(string newNickname) => Nickname = newNickname;
 
         public void ChangeEmail(string newEmail) => Email = newEmail;
-
-        public void ChangeAvatar(string newAvatarPath) => AvatarPath = newAvatarPath;
 
         public void ChangePassword(HashedPassword newPassword) => Password = newPassword;
 

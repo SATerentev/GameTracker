@@ -16,7 +16,7 @@ namespace GameTracker.Services.Account
         public void DeleteUser(User user)
         {
             user.MarkAsDeleted();
-            _userRepository.DeleteUser(user);
+            _userRepository.UpdateUser(user);
         }
 
         public void RecoveryUser(User user)

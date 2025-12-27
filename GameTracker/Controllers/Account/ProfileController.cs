@@ -1,6 +1,8 @@
 ﻿using GameTracker.Entity.Account;
+using GameTracker.Entity.Games;
 using GameTracker.Interfaces;
 using GameTracker.Interfaces.Account;
+using GameTracker.Interfaces.Games;
 using GameTracker.ViewModel.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,15 +17,20 @@ namespace GameTracker.Controllers.Account
         private readonly IUserStatusService _userStatusService;
         private readonly IAuthenticationService _authenticationService;
         private readonly IAccountVerificationService _accountVerificationService;
+        private readonly IUserLibraryService _userLibraryService;
+        private readonly IGameCatalogService _gameCatalogService;
 
         public ProfileController(IUserAuthService userAuthService, IUpdateProfileService updateProfile,
-            IUserStatusService userStatusService, IAuthenticationService authenticationService, IAccountVerificationService accountVerificationService)
+            IUserStatusService userStatusService, IAuthenticationService authenticationService, IAccountVerificationService accountVerificationService,
+            IUserLibraryService userLibraryService, IGameCatalogService gameCatalogService)
         {
             _userAuthService = userAuthService;
             _updateProfileService = updateProfile;
             _userStatusService = userStatusService;
             _authenticationService = authenticationService;
             _accountVerificationService = accountVerificationService;
+            _userLibraryService = userLibraryService;
+            _gameCatalogService = gameCatalogService;
         }
 
         [Authorize]
@@ -31,19 +38,26 @@ namespace GameTracker.Controllers.Account
         {
             var id = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var user = _userAuthService.GetUser(id);
+            var userGames = _userLibraryService.GetUserLibrary(user.Id);
+            List<Game> games = new List<Game>();
 
-            if(user == null) return RedirectToAction("Logout", "Account");
+            foreach (var userGame in userGames)
+            {
+                games.Add(_gameCatalogService.GetGame(userGame.Id));
+            }
 
-            // =========TEST===========
+            if (user == null) return RedirectToAction("Logout", "Account");
 
-            Console.WriteLine(User.FindFirstValue("Status").ToString());
-            Console.WriteLine(user.Status.ToString());
-            Console.WriteLine(user.Status.ToString() == User.FindFirstValue("Status").ToString());
-            Console.WriteLine(User.FindFirstValue(ClaimTypes.Role.ToString()));
+            var vm = new AccountPageViewModel(
+                user.Nickname,
+                user.Role,
+                user.Email,
+                user.Login,
+                user.Status,
+                games
+            );
 
-            // =========================
-
-            return View("~/Views/Account/Page.cshtml", user);
+            return View("~/Views/Account/Page.cshtml", vm);
         }
 
         [HttpPost]
@@ -56,7 +70,19 @@ namespace GameTracker.Controllers.Account
             if (!isActive)
                 ModelState.AddModelError(string.Empty, "Неверный код подтверждения");
 
-            return View("~/Views/Account/Page.cshtml", _userAuthService.GetUser(id));
+            //var user = _userAuthService.GetUser(id);
+
+            //var vm = new AccountPageViewModel(
+            //    user.Nickname,
+            //    user.Role,
+            //    user.Email,
+            //    user.Login,
+            //    user.Status
+            //);
+
+            //return View("~/Views/Account/Page.cshtml", vm);
+
+            return RedirectToAction("Page", "Profile");
         }
 
         [HttpPost]

@@ -10,5 +10,10 @@ namespace GameTracker.Controllers
         {
             return View();
         }
+
+        public IActionResult AddNewGame()
+        {
+            return View("~/Views/Moder/AddNewGame.cshtml");
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace GameTracker.ViewModel.Account
 {
-    public class EmailViewModel
+    public class RequestPasswordResetViewModel
     {
         [Required]
         [EmailAddress(ErrorMessage = "Введите корректный адрес электронной почты.")]

@@ -2,6 +2,11 @@ html {
     height: 100%;
 }
 
+a {
+    color: white;
+    text-decoration: none;
+}
+
 body {
     background-color: #222;
     color: white;
@@ -54,6 +59,15 @@ form {
     width: 100%;
 }
 
+textarea {
+    background-color: #222;
+    width: 100%;
+    height: 80px;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+}
+
 .form_window {
     display: flex;
     flex-direction: column;
@@ -64,6 +78,7 @@ form {
     border: 1px solid #191919;
     border-radius: 10px;
     margin: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .form_label {
@@ -81,6 +96,7 @@ input {
     border-radius: 5px;
     color: white;
     margin-left: 5px;
+    padding: 10px;
 }
 
 .button_submit {
@@ -93,11 +109,11 @@ input {
     padding: 10px;
     margin: 10px;
     cursor: pointer;
+    transition: width 0.3s ease-in-out;
 }
 
     .button_submit:hover {
         width: 80%;
-        transition: 0.3s;
     }
 
 .button_danger {
@@ -122,12 +138,12 @@ input {
     padding: 10px;
     margin: 10px;
     cursor: pointer;
+    transition: background-color 0.3s, width 0.3s ease-in-out;
 }
 
     .button_default:hover {
         background-color: #282828;
         width: 80%;
-        transition: 0.3s;
     }
 
 .column {
@@ -149,8 +165,8 @@ input {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    alight-items: center;
-    background-color: rgba(0,0,0,0);
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
     padding: 20px;
 }
 
@@ -160,9 +176,10 @@ input {
     align-items: center;
     background-color: #333;
     padding: 20px;
-    box-shadow: 4px 0 4px rgba(0,0,0,0.4);
+    box-shadow: 4px 0 4px rgba(0, 0, 0, 0.4);
     width: 30%;
     height: 100%;
+    border-radius: 10px;
 }
 
 .profile_header {
@@ -180,15 +197,84 @@ input {
     margin-left: 20px;
 }
 
-.profile_avatar {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    margin-bottom: 10px;
+.game_library {
+    display: flex;
+    flex-direction: row;
+}
+
+.game-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 колонки */
+    gap: 20px; /* Расстояние между карточками */
+    padding: 20px;
+}
+
+.game_card {
+    width: 460px;
+    height: 420px;
+    background-color: #181818;
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    border: 2px solid #6495ED;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+    box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.4);
+    position: relative; /* Для абсолютного позиционирования */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Чтобы содержимое не сжималось */
+    transition: all 0.3s;
+}
+
+    .game_card:hover {
+        box-shadow: 4px 6px 6px rgba(0, 0, 0, 0.8);
+        transform: scale(1.03);
+        transform-origin: center;
+    }
+
+.game-name{
+        font-size: 24px;
+    font-weight: bold;
+    margin: 10px;
+    text-align: center;
+}
+
+.game-year{
+    font-size: 18px;
+    text-align: center;
+}
+
+.game-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 2px solid #ddd;
+    transition: transform 0.3s ease; /* Плавный переход */
+}
+
+.game_card_description {
+    padding: 10px;
+    font-size: 14px;
+    color: #ccc;
+    flex: 1;
+    overflow: hidden;
+}
+
+.game_card:hover .game-image {
+    transform: scale(1.1); /* Увеличиваем изображение */
+}
+
+.game_card:hover .game_card_description {
+    transform: scale(1.1); /* Плавное увеличение описания */
+    transition: transform 0.3s ease;
 }
 
 .moderator_window {
+    margin-top: 20px;
 }
 
 .library_window {
+    margin-top: 20px;
 }

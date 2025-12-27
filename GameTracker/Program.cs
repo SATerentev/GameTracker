@@ -5,6 +5,8 @@ using GameTracker.Interfaces;
 using GameTracker.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting.StaticWebAssets;
+using GameTracker.Interfaces.Games;
+using GameTracker.Services.Games;
 
 namespace GameTracker
 {
@@ -32,11 +34,18 @@ namespace GameTracker
                 });
 
             builder.Services.AddAuthorization();
+
             AccountSystem.ConnectSystem(builder);
+
+            builder.Services.AddScoped<ICatalogRepository, CatalogRepository>();
+            builder.Services.AddScoped<IUserGameRepository, UserGameRepository>();
+            builder.Services.AddScoped<IUserLibraryService, UserLibraryService>();
+            builder.Services.AddScoped<IGameCatalogService, GameCatalogService>();
+
+            builder.Services.AddScoped<IEmailSender, DEBUG_EmailSender>();
             builder.Services.AddScoped<IHashPasswordService, HashService>();
             builder.Services.AddScoped<ICodeGenerator, CodeGenerator>();
             builder.Services.AddScoped<IEmailService, EmailService>();
-            builder.Services.AddScoped<IEmailSender, DEBUG_EmailSender>();
             builder.Services.AddMemoryCache();
             builder.Services.AddHttpContextAccessor();
 
