@@ -1,4 +1,6 @@
-﻿namespace GameTracker.ViewModel.Games
+﻿using GameTracker.Entity.Games;
+
+namespace GameTracker.ViewModel.Games
 {
     public class GameCardViewModel
     {
@@ -7,12 +9,12 @@
         public string ImageUrl { get; set; }
         public int Year { get; set; }
 
-        public GameCardViewModel(Guid id, string name, string imageUrl, int year)
+        public GameCardViewModel(Game game)
         {
-            Id = id;
-            Name = name;
-            ImageUrl = imageUrl;
-            Year = year;
+            Id = game.Id;
+            Name = game.Name;
+            ImageUrl = game.ImageUrl;
+            Year = game.ReleaseDate.Year;
         }
     }
 }

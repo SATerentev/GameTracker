@@ -11,13 +11,13 @@ namespace GameTracker.Entity.Games
         public int? UserRating { get; private set; }
         public GameStatus Status { get; private set; }
         
-        public UserGame(Guid userId, Guid gameId, GameStatus status, int? userRating = null)
+        public UserGame(Guid userId, Guid gameId)
         {
             Id = Guid.NewGuid();
             UserId = userId;
             GameId = gameId;
-            Status = status;
-            UserRating = userRating;
+            Status = GameStatus.Completed;
+            UserRating = null;
         }
         
         public UserGame() { } // Вроде без него EF Core не работает. Не удалять.

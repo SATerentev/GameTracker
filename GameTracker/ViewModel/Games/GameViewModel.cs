@@ -6,6 +6,7 @@ namespace GameTracker.ViewModel.Games
     {
         public GameViewModel(Game game, UserGame userGame)
         {
+            Id = game.Id;
             Name = game.Name;
             Link = game.Link;
             Description = game.Description;
@@ -27,10 +28,11 @@ namespace GameTracker.ViewModel.Games
             else
             {
                 Status = GameStatus.Nothing;
-                Rate = 0;
+                Rate = null;
             }
         }
 
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Link { get; set; }
         public string Description { get; set; }

@@ -3,6 +3,7 @@ using GameTracker.Interfaces.Games;
 using GameTracker.ViewModel.Games;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace GameTracker.Controllers.Games
 {
@@ -22,14 +23,13 @@ namespace GameTracker.Controllers.Games
         public IActionResult Catalog()
         {
             var games = _gameCatalogService.GetAllGames();
-            Console.WriteLine(games.Count);
+            List<GameCardViewModel> cards = new List<GameCardViewModel>();
 
-            var cards = games.Select(g => new GameCardViewModel(
-                g.Id,
-                g.Name,
-                g.ImageUrl,
-                g.ReleaseDate.Year))
-                .ToList();
+            foreach (var game in games)
+            {
+                var card = new GameCardViewModel(game);
+                cards.Add(card);
+            }
 
             var catalog = new CatalogViewModel(cards);
 
@@ -40,7 +40,8 @@ namespace GameTracker.Controllers.Games
         {
             Console.WriteLine($"GAME ID FROM ROUTE = {gameId}");
             var game = _gameCatalogService.GetGame(gameId);
-            var user = _userAuthService.GetUser(User.Identity.Name);
+            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var user = _userAuthService.GetUser(userId);
             Console.WriteLine($"FOUND GAME? {game != null}");
 
             if (game == null) return NotFound();

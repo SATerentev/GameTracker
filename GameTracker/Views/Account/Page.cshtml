@@ -7,14 +7,14 @@
 <div class="profile_page">
     <div class="profile_container">
         <div class="profile_header">
-            <h3>@Model.Nickname</h3>
+            <h3>@Model.AccountData.Nickname</h3>
         </div>
         <div class="profile_main">
-            <p style="margin-bottom: 20px">Пройдено игр: @Model.UserGames.Count</p>
-            <p>Логин: @Model.Login</p>
-            <p style="margin-bottom: 20px">Email: @Model.Email</p>
-            <p>Роль: @Model.Role</p>
-            <p>Статус: @Model.Status</p>
+            <p style="margin-bottom: 20px">Пройдено игр: @Model.UserGames.UserGames.Count</p>
+            <p>Логин: @Model.AccountData.Login</p>
+            <p style="margin-bottom: 20px">Email: @Model.AccountData.Email</p>
+            <p>Роль: @Model.AccountData.Role</p>
+            <p>Статус: @Model.AccountData.Status</p>
         </div>
         <form asp-action="Logout" asp-controller="Login" method="post">
             <button class="button_default">Выйти из аккаунта</button>
@@ -24,14 +24,14 @@
             <button class="button_danger">Удалить аккаунт</button>
         </form>
 
-        @if (Model.Role == GameTracker.Entity.Account.UserRole.Admin)
+        @if (Model.AccountData.Role == GameTracker.Entity.Account.UserRole.Admin)
         {
             <div>
                 <a asp-action="Index" asp-controller="Admin"><button class="button_default">ADMIN PANEL</button></a>
             </div>
         }
 
-        @if(Model.Role == GameTracker.Entity.Account.UserRole.Moderator || Model.Role == GameTracker.Entity.Account.UserRole.Admin)
+        @if (Model.AccountData.Role == GameTracker.Entity.Account.UserRole.Moderator || Model.AccountData.Role == GameTracker.Entity.Account.UserRole.Admin)
         {
             <div>
                 <a asp-action="Index" asp-controller="Moder"><button class="button_default">MODER PANEL</button></a>
@@ -39,14 +39,12 @@
         }
     </div>
 
-    @if (Model.Status == GameTracker.Entity.Account.UserStatus.Inactive)
+    @if (Model.AccountData.Status == GameTracker.Entity.Account.UserStatus.Inactive)
     {
-        var viewModel = new GameTracker.ViewModel.Account.ConfirmEmailViewModel();
-        @await Html.PartialAsync("~/Views/Shared/_ConfirmEmailPartial.cshtml", viewModel)
+        @await Html.PartialAsync("~/Views/Shared/_ConfirmEmailPartial.cshtml", Model.ConfirmEmail)
     }
     else
     {
-        var libraryViewModel = new GameTracker.ViewModel.Games.UserGameLibraryViewModel(Model.UserGames);
-        @await Html.PartialAsync("~/Views/Shared/_UserGameLibraryPartial.cshtml", libraryViewModel)
+        @await Html.PartialAsync("~/Views/Shared/_UserGameLibraryPartial.cshtml", Model.UserGames)
     }
 </div>

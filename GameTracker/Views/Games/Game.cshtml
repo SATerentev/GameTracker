@@ -12,6 +12,16 @@
     @if (Model.Status == GameTracker.Entity.Games.GameStatus.Nothing)
     {
         <p>Игры нет в вашей библиотеке</p>
+        <form 
+            asp-action="AddGameToLibrary" 
+            asp-controller="UserLibrary" 
+            asp-route-gameId ="@Model.Id" 
+            asp-antiforgery="true"
+            method="post">
+
+            <button type="submit" class="button_submit">Добавить игру в библиотеку</button>
+        
+        </form>
     }
     else
     {

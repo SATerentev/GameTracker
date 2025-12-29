@@ -39,23 +39,23 @@ namespace GameTracker.Controllers.Account
             var id = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var user = _userAuthService.GetUser(id);
             var userGames = _userLibraryService.GetUserLibrary(user.Id);
-            List<Game> games = new List<Game>();
-
-            foreach (var userGame in userGames)
-            {
-                games.Add(_gameCatalogService.GetGame(userGame.Id));
-            }
 
             if (user == null) return RedirectToAction("Logout", "Account");
 
-            var vm = new AccountPageViewModel(
+            var accountPageViewModel = new AccountDataViewModel(
                 user.Nickname,
                 user.Role,
                 user.Email,
                 user.Login,
-                user.Status,
-                games
+                user.Status
             );
+
+            var vm = new AccountPageViewModel
+                (
+                    accountPageViewModel,
+                    new ConfirmEmailViewModel(),
+                    userGames
+                );
 
             return View("~/Views/Account/Page.cshtml", vm);
         }
@@ -69,18 +69,6 @@ namespace GameTracker.Controllers.Account
 
             if (!isActive)
                 ModelState.AddModelError(string.Empty, "Неверный код подтверждения");
-
-            //var user = _userAuthService.GetUser(id);
-
-            //var vm = new AccountPageViewModel(
-            //    user.Nickname,
-            //    user.Role,
-            //    user.Email,
-            //    user.Login,
-            //    user.Status
-            //);
-
-            //return View("~/Views/Account/Page.cshtml", vm);
 
             return RedirectToAction("Page", "Profile");
         }
