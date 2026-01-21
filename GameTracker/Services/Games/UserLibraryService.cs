@@ -59,7 +59,10 @@ namespace GameTracker.Services.Games
         }
         public void RemoveGame(Guid userId, Guid gameId)
         {
-            throw new NotImplementedException();
+            var userGame = _repository.GetByUserAndGameId(userId, gameId);
+            if (userGame == null)
+                throw new InvalidOperationException("Game not found in user's library.");
+            _repository.Remove(userGame);
         }
     }
 }

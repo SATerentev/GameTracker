@@ -37,6 +37,11 @@
             )
             <button onclick="closeEditModal()">Закрыть</button>
         </div>
+        <div>
+            <form asp-action="RemoveFromLibrary" asp-controller="UserLibrary" asp-route-gameId="@Model.GameViewModel.Id">
+                <button type="submit" class="button_danger">Удалить игру из библиотеки</button>
+            </form>
+        </div>
     }
 </div>
 

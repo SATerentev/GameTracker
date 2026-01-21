@@ -35,5 +35,14 @@ namespace GameTracker.Controllers.Games
             _userLibraryService.RateGame(userId, gameId, data.Rating);
             return RedirectToAction("Game", "Catalog", new { gameId });
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult RemoveFromLibrary(Guid gameId)
+        {
+            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            _userLibraryService.RemoveGame(userId, gameId);
+            return RedirectToAction("Game", "Catalog", new { gameId });
+        }
     }
 }
