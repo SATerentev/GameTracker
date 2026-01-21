@@ -1,31 +1,51 @@
-﻿@model GameTracker.ViewModel.Games.GameViewModel
+﻿@model GameTracker.ViewModel.Games.GamePageViewModel;
 
 <div>
-    <img src="@Model.ImageUrl" />
-    <h2>@Model.Name</h2>
-    <p>Жанр: @Model.Genre.ToString()</p>
-    <p>Дата выпуска: @Model.ReleaseDate.ToString("dd.MM.yyyy")</p>
-    <p>Описание: @Model.Description</p>
-    <p>Разработчик: @Model.DeveloperName</p>
-    <p>Издатель: @Model.PublisherName</p>
+    <img class="game-image" src="@Model.GameViewModel.ImageUrl" />
+    <h2>@Model.GameViewModel.Name</h2>
+    <p>Жанр: @Model.GameViewModel.Genre.ToString()</p>
+    <p>Дата выпуска: @Model.GameViewModel.ReleaseDate.ToString("dd.MM.yyyy")</p>
+    <p>Описание: @Model.GameViewModel.Description</p>
+    <p>Разработчик: @Model.GameViewModel.DeveloperName</p>
+    <p>Издатель: @Model.GameViewModel.PublisherName</p>
 
-    @if (Model.Status == GameTracker.Entity.Games.GameStatus.Nothing)
+    @if (Model.GameViewModel.Status == GameTracker.Entity.Games.GameStatus.Nothing)
     {
         <p>Игры нет в вашей библиотеке</p>
-        <form 
-            asp-action="AddGameToLibrary" 
-            asp-controller="UserLibrary" 
-            asp-route-gameId ="@Model.Id" 
-            asp-antiforgery="true"
-            method="post">
+        <form asp-action="AddGameToLibrary"
+              asp-controller="UserLibrary"
+              asp-route-gameId="@Model.GameViewModel.Id"
+              asp-antiforgery="true"
+              method="post">
 
             <button type="submit" class="button_submit">Добавить игру в библиотеку</button>
-        
+
         </form>
     }
     else
     {
-        <p>@Model.Status</p>
-        <p>Ваша оценка - @Model.Rate</p>
+        <div style="border-top: 2px solid black;">
+            <p>Статус - @Model.GameViewModel.Status</p>
+            <p>Оценка - @Model.GameViewModel.Rating</p>
+            <button class="button_default" onclick="openEditModal()">Изменить статус и оценку</button>
+        </div>
+        <div id="editModal" style="display: none">
+            @await Html.PartialAsync(
+                "~/Views/Shared/_ChangeStatusAndRatingPartial.cshtml", 
+                Model.GameRateAndStatusViewModel,
+                new ViewDataDictionary(ViewData) { ["GameId"] = Model.GameViewModel.Id }
+            )
+            <button onclick="closeEditModal()">Закрыть</button>
+        </div>
     }
 </div>
+
+<script>
+    function openEditModal(){
+        document.getElementById("editModal").style.display = "block";
+    }
+
+    function closeEditModal(){
+        document.getElementById("editModal").style.display = "none";
+    }
+</script>

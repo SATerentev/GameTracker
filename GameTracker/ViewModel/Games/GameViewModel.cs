@@ -15,20 +15,20 @@ namespace GameTracker.ViewModel.Games
             PublisherName = game.PublisherName;
             Genre = game.Genre;
             ReleaseDate = game.ReleaseDate;
-            
+
             if (userGame != null)
             {
                 Status = userGame.Status;
 
                 if (userGame.UserRating == null)
-                    Rate = 0;
+                    Rating = 0;
                 else
-                    Rate = userGame.UserRating;
+                    Rating = userGame.UserRating;
             }
             else
             {
                 Status = GameStatus.Nothing;
-                Rate = null;
+                Rating = null;
             }
         }
 
@@ -42,6 +42,6 @@ namespace GameTracker.ViewModel.Games
         public string Genre { get; set; }
         public DateTime ReleaseDate { get; set; }
         public GameStatus Status { get; set; }
-        public int? Rate { get; set; }
-        }
+        public int? Rating { get; set; }
+    }
 }

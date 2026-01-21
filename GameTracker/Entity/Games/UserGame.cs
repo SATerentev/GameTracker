@@ -21,6 +21,19 @@ namespace GameTracker.Entity.Games
         }
         
         public UserGame() { } // Вроде без него EF Core не работает. Не удалять.
+        
+        public void UpdateStatus(GameStatus newStatus)
+        {
+            Status = newStatus;
+        }
+
+        public void UpdateUserRating(int rating)
+        {
+            if (rating < 1 || rating > 10)
+                throw new ArgumentOutOfRangeException(nameof(rating), "Rating must be between 1 and 10.");
+
+            UserRating = rating;
+        }
     }
 }
 

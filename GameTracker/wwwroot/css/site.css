@@ -247,11 +247,9 @@ input {
 }
 
 .game-image {
-    width: 100%;
-    height: 200px;
+    width: 40vh;
     object-fit: cover;
     border-bottom: 2px solid #ddd;
-    transition: transform 0.3s ease; /* Плавный переход */
 }
 
 .game_card_description {
@@ -262,7 +260,7 @@ input {
     overflow: hidden;
 }
 
-.game_card:hover .game-image {
+.game_card:hover {
     transform: scale(1.1); /* Увеличиваем изображение */
 }
 

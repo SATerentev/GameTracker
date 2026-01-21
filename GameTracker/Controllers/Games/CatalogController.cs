@@ -42,13 +42,12 @@ namespace GameTracker.Controllers.Games
             var game = _gameCatalogService.GetGame(gameId);
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var user = _userAuthService.GetUser(userId);
-            Console.WriteLine($"FOUND GAME? {game != null}");
 
-            if (game == null) return NotFound();
             if (user == null) return RedirectToAction("Login", "Account");
 
             var userGame = _userLibraryService.GetUserGame(user.Id, game.Id);
-            var vm = new GameViewModel(game, userGame);
+            var gameVm = new GameViewModel(game, userGame);
+            var vm = new GamePageViewModel(gameVm);
             return View("~/Views/Games/Game.cshtml", vm);
         }
 

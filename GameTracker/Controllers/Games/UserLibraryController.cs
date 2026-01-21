@@ -1,4 +1,5 @@
-﻿using GameTracker.Interfaces.Games;
+﻿using GameTracker.Entity.Games;
+using GameTracker.Interfaces.Games;
 using GameTracker.ViewModel.Games;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -21,13 +22,18 @@ namespace GameTracker.Controllers.Games
         public IActionResult AddGameToLibrary(Guid gameId)
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            _userLibraryService.AddGame(userId, gameId);
+            return RedirectToAction("Game", "Catalog", new { gameId });
+        }
 
-            var userGame = _userLibraryService.AddGame(userId, gameId);
-            var game = _gameCatalogService.GetGame(gameId);
-
-            var vm = new GameViewModel(game, userGame);
-
-            return View("~/Views/Games/Game.cshtml", vm);
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ChangeStatusAndRate(Guid gameId, GameRateAndStatusViewModel data)
+        {
+            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            _userLibraryService.ChangeGameStatus(userId, gameId, data.Status);
+            _userLibraryService.RateGame(userId, gameId, data.Rating);
+            return RedirectToAction("Game", "Catalog", new { gameId });
         }
     }
 }

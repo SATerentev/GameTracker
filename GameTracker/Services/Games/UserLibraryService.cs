@@ -33,7 +33,6 @@ namespace GameTracker.Services.Games
 
             foreach (var userGame in userGames)
             {
-                // Assuming there's a method to get Game by its ID
                 var game = _gameCatalogService.GetGame(userGame.GameId);
                 games.Add(game);
             }
@@ -42,11 +41,21 @@ namespace GameTracker.Services.Games
         }
         public void ChangeGameStatus(Guid userId, Guid gameId, GameStatus status)
         {
-            throw new NotImplementedException();
+            var userGame = _repository.GetByUserAndGameId(userId, gameId);
+            if (userGame == null)
+                throw new InvalidOperationException("Game not found in user's library.");
+
+            userGame.UpdateStatus(status);
+            _repository.Update(userGame);
         }
         public void RateGame(Guid userId, Guid gameId, int rating)
         {
-            throw new NotImplementedException();
+            var userGame = _repository.GetByUserAndGameId(userId, gameId);
+            if (userGame == null)
+                throw new InvalidOperationException("Game not found in user's library.");
+
+            userGame.UpdateUserRating(rating);
+            _repository.Update(userGame);
         }
         public void RemoveGame(Guid userId, Guid gameId)
         {

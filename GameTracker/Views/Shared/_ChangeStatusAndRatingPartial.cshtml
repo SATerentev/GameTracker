@@ -1,0 +1,35 @@
+﻿@model GameTracker.ViewModel.Games.GameRateAndStatusViewModel
+
+<div class="form_window">
+    <form asp-action="ChangeStatusAndRate" asp-controller="UserLibrary" asp-route-gameId="@ViewData["GameId"]" method="post" novalidate>
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" style="color: red"></div>
+        <div class="form_label">
+            <label asp-for="Status">Статус: </label>
+            <select asp-for="Status">
+                <option value="Completed">Пройдена</option>
+                <option value="InProgress">В процессе</option>
+                <option value="Planned">Запланирована</option>
+                <option value="Dropped">Брошена</option>
+            </select>
+            <span asp-validation-for="Status" style="color: red"></span>
+        </div>
+        <div class="form_label">
+            <label asp-for="Rating">Оценка: </label>
+            <select asp-for="Rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+            <span asp-validation-for="Status" style="color: red"></span>
+        </div>
+        <button class="button_submit" type="submit">Сохранить</button>
+    </form>
+</div>
