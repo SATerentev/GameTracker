@@ -1,50 +1,65 @@
 ﻿@model GameTracker.ViewModel.Account.AccountPageViewModel;
-
 @{
     ViewData["Title"] = "Профиль";
 }
-
-<div class="profile_page">
-    <div class="profile_container">
-        <div class="profile_header">
-            <h3>@Model.AccountData.Nickname</h3>
-        </div>
-        <div class="profile_main">
-            <p>Пройдено игр: @Model.UserGames.UserGames.Count</p>
-            <p>Логин: @Model.AccountData.Login</p>
-            <p>Email: @Model.AccountData.Email</p>
-            <p>Роль: @Model.AccountData.Role</p>
-            <p>Статус: @Model.AccountData.Status</p>
-        </div>
-        <form asp-action="Logout" asp-controller="Login" method="post">
-            <button class="button_default">Выйти из аккаунта</button>
-        </form>
-        <form asp-action="DeleteUser" asp-controller="Profile" method="post">
-            @Html.AntiForgeryToken()
-            <button class="button_danger">Удалить аккаунт</button>
-        </form>
-
-        @if (Model.AccountData.Role == GameTracker.Entity.Account.UserRole.Admin)
-        {
-            <div>
-                <a asp-action="Index" asp-controller="Admin"><button class="button_default">ADMIN PANEL</button></a>
+<div class="container mt-3">
+    <div class="row g-4">  <!-- g-4 для отступов между колонками -->
+        <!-- Левая колонка: инфо о юзере + кнопки -->
+        <div class="col-md-10">
+            <div class="card shadow-sm h-100">  <!-- h-100 для выравнивания высоты с правой колонкой -->
+                <div class="card-header bg-dark text-center">
+                    <h3>@Model.AccountData.Nickname</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Игр в библиотеке: @Model.UserGames.UserGames.Count</li>
+                        <li class="list-group-item">Логин: @Model.AccountData.Login</li>
+                        <li class="list-group-item">Email: @Model.AccountData.Email</li>
+                        <li class="list-group-item">Роль: @Model.AccountData.Role</li>
+                        <li class="list-group-item">Статус: @Model.AccountData.Status</li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center">
+                    <form asp-action="Logout" asp-controller="Login" method="post" class="d-inline me-2">
+                        <button type="submit" class="btn btn-primary">Выйти из аккаунта</button>
+                    </form>
+                    <form asp-action="DeleteUser" asp-controller="Profile" method="post" class="d-inline me-2">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Ты уверен, что хочешь удалить аккаунт?');">Удалить аккаунт</button>
+                    </form>
+                    @if (Model.AccountData.Role == GameTracker.Entity.Account.UserRole.Admin)
+                    {
+                        <a asp-action="Index" asp-controller="Admin" class="btn btn-secondary me-2">ADMIN PANEL</a>
+                    }
+                    @if (Model.AccountData.Role == GameTracker.Entity.Account.UserRole.Moderator || Model.AccountData.Role == GameTracker.Entity.Account.UserRole.Admin)
+                    {
+                        <a asp-action="Index" asp-controller="Moder" class="btn btn-secondary">MODER PANEL</a>
+                    }
+                </div>
             </div>
-        }
+        </div>
 
-        @if (Model.AccountData.Role == GameTracker.Entity.Account.UserRole.Moderator || Model.AccountData.Role == GameTracker.Entity.Account.UserRole.Admin)
-        {
-            <div>
-                <a asp-action="Index" asp-controller="Moder"><button class="button_default">MODER PANEL</button></a>
-            </div>
-        }
+        <!-- Правая колонка: библиотека или подтверждение email -->
+        <div class="col-md-10">
+            @if (Model.AccountData.Status == GameTracker.Entity.Account.UserStatus.Inactive)
+            {
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        @await Html.PartialAsync("~/Views/Shared/_ConfirmEmailPartial.cshtml", Model.ConfirmEmail)
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="card shadow-sm">
+                    <div class="card-header bg-dark">
+                        <h4>Ваша игровая библиотека</h4>
+                    </div>
+                    <div class="card-body">
+                        @await Html.PartialAsync("~/Views/Shared/_UserGameLibraryPartial.cshtml", Model.UserGames)
+                    </div>
+                </div>
+            }
+        </div>
     </div>
-
-    @if (Model.AccountData.Status == GameTracker.Entity.Account.UserStatus.Inactive)
-    {
-        @await Html.PartialAsync("~/Views/Shared/_ConfirmEmailPartial.cshtml", Model.ConfirmEmail)
-    }
-    else
-    {
-        @await Html.PartialAsync("~/Views/Shared/_UserGameLibraryPartial.cshtml", Model.UserGames)
-    }
 </div>

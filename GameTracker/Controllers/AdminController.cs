@@ -25,12 +25,15 @@ namespace GameTracker.Controllers
         [HttpPost]
         public IActionResult MakeModerator(MakeModeratorViewModel userData)
         {
+            if (!ModelState.IsValid)
+                return View("~/Views/Admin/Index.cshtml", userData);
+
             var user = _userAuthService.GetUser(userData.Login);
 
             if (user == null)
             {
                 ModelState.AddModelError(string.Empty, "Пользователь с такими логином не найден.");
-                return View("~/Views/Account/Login.cshtml", userData);
+                return View("~/Views/Admin/Index.cshtml", userData);
             }
 
             _userStatusService.MakeModerator(user);

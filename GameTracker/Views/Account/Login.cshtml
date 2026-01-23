@@ -1,25 +1,35 @@
 ﻿@using GameTracker.ViewModel.Account
 @model UserLoginViewModel;
-
 @{
     ViewData["Title"] = "Авторизация";
 }
-
-<div class="form_window">
-    <form asp-action="Login" asp-controller="Login" method="post" novalidate>
-        <div asp-validation-summary="ModelOnly" style="color: red"></div>
-        <h2>Авторизация</h2>
-        <div class="form_label">
-            <label asp-for="Login">Логин: </label>
-            <input asp-for="Login" />
-            <span asp-validation-for="Login" style="color: red"></span>
-        </div> 
-        <div class="form_label">
-            <label asp-for="Password">Пароль: </label>
-            <input asp-for="Password" />
-            <span asp-validation-for="Password" style="color: red"></span>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">  <!-- Узкая колонка для формы, центрирована -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-center">
+                    <h2>Авторизация</h2>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Login" asp-controller="Login" method="post" novalidate>
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>  <!-- Сделал alert для ошибок, display:none если пусто -->
+                        <div class="mb-3">  <!-- mb-3 для отступа между полями -->
+                            <label asp-for="Login" class="form-label">Логин:</label>
+                            <input asp-for="Login" class="form-control" />
+                            <span asp-validation-for="Login" class="text-danger"></span>  <!-- text-danger для красного -->
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label">Пароль:</label>
+                            <input asp-for="Password" class="form-control" type="password" />  <!-- Добавил type="password" для маскировки -->
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Войти</button>  <!-- w-100 для полной ширины -->
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <a asp-action="RecoveryPasswordCode" asp-controller="PasswordRecovery" class="btn btn-link">Забыли пароль?</a>
+                </div>
+            </div>
         </div>
-        <button class="button_submit" type="submit">Войти</button>
-        <a asp-action="RecoveryPasswordCode" asp-controller="PasswordRecovery">Забыли пароль?</a>
-    </form>
+    </div>
 </div>

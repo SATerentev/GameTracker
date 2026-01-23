@@ -1,18 +1,28 @@
 ﻿@model GameTracker.ViewModel.Games.CatalogViewModel
 
-<div class="game-container">
-    @foreach (var game in Model.Games)
-    {
-        <a asp-controller="Catalog"
-           asp-action="Game"
-           asp-route-gameId="@game.Id">
-            <div class="game_card">
-                <img src="@game.ImageUrl" />
+<div class="game-catalog">
+    <!-- Панель поиска и фильтров -->
+    <div class="search-and-filters mb-4">
+        <div class="search-bar">
+            <input type="text" class="form-control" placeholder="Поиск по играм..." />
+        </div>
+    </div>
 
-                <h2 class="game-name">@game.Name</h2>
-
-                <p class="game-year">(@game.Year)</p>
+    <!-- Контейнер с играми -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var game in Model.Games)
+        {
+            <div class="col">
+                <a asp-controller="Catalog" asp-action="Game" asp-route-gameId="@game.Id">
+                    <div class="game_card card shadow-sm h-100">
+                        <img src="@game.ImageUrl" class="card-img-top" alt="@game.Name" />
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="game-name card-title">@game.Name</h5>
+                            <p class="game-year text-muted">(@game.Year)</p>
+                        </div>
+                    </div>
+                </a>
             </div>
-        </a>
-    }
+        }
+    </div>
 </div>

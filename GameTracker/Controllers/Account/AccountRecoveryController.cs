@@ -12,23 +12,13 @@ namespace GameTracker.Controllers.Account
         IUserAuthService _userAuthService;
         IUserStatusService _userStatusService;
         IAuthenticationService _authenticationService;
-        IPasswordRecoveryService _passwordRecoveryService;
-        IUpdateProfileService _userUpdateProfile;
 
         public AccountRecoveryController(IUserAuthService userAuthService, IUserStatusService userStatusService, 
-            IAuthenticationService authenticationService, IPasswordRecoveryService passwordRecoveryService, 
-            IUpdateProfileService userUpdateProfile)
+            IAuthenticationService authenticationService)
         {
             _userAuthService = userAuthService;
             _userStatusService = userStatusService;
             _authenticationService = authenticationService;
-            _passwordRecoveryService = passwordRecoveryService;
-            _userUpdateProfile = userUpdateProfile;
-        }
-
-        public IActionResult Index()
-        {
-            return View("~/Views/Account/AccountRecovery.cshtml");
         }
 
         [HttpPost]

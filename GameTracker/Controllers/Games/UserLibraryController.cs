@@ -1,5 +1,4 @@
-﻿using GameTracker.Entity.Games;
-using GameTracker.Interfaces.Games;
+﻿using GameTracker.Interfaces.Games;
 using GameTracker.ViewModel.Games;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -9,12 +8,10 @@ namespace GameTracker.Controllers.Games
     public class UserLibraryController : Controller
     {
         private readonly IUserLibraryService _userLibraryService;
-        private readonly IGameCatalogService _gameCatalogService;
 
-        public UserLibraryController(IUserLibraryService userLibraryService, IGameCatalogService gameCatalogService)
+        public UserLibraryController(IUserLibraryService userLibraryService)
         {
             _userLibraryService = userLibraryService;
-            _gameCatalogService = gameCatalogService;
         }
 
         [HttpPost]
@@ -30,6 +27,9 @@ namespace GameTracker.Controllers.Games
         [ValidateAntiForgeryToken]
         public IActionResult ChangeStatusAndRate(Guid gameId, GameRateAndStatusViewModel data)
         {
+            if (!ModelState.IsValid)
+                return RedirectToAction("Game", "Catalog", new { gameId });
+
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             _userLibraryService.ChangeGameStatus(userId, gameId, data.Status);
             _userLibraryService.RateGame(userId, gameId, data.Rating);
@@ -41,7 +41,7 @@ namespace GameTracker.Controllers.Games
         public IActionResult RemoveFromLibrary(Guid gameId)
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            _userLibraryService.RemoveGame(userId, gameId);
+            _userLibraryService.RemoveUserGame(userId, gameId);
             return RedirectToAction("Game", "Catalog", new { gameId });
         }
     }

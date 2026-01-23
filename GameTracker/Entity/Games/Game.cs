@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using GameTracker.ViewModel.Games;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GameTracker.Entity.Games
 {
@@ -32,5 +33,19 @@ namespace GameTracker.Entity.Games
         }
 
         public Game() { } // Вроде без него EF Core не работает. Не удалять.
+
+        public Game UpdateDetails(EditGameViewModel vm)
+        {
+            Name = vm.Name;
+            Link = vm.Link;
+            Description = vm.Description;
+            ImageUrl = vm.ImageUrl;
+            DeveloperName = vm.DeveloperName;
+            PublisherName = vm.PublisherName;
+            Genre = vm.Genre;
+            ReleaseDate = vm.ReleaseDate;
+
+            return this;
+        }
     }
 }

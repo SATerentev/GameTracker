@@ -34,6 +34,16 @@ namespace GameTracker.Services.Games
             return game.Id;
         }
 
+        public void UpdateGame(Guid gameId, EditGameViewModel vm)
+        {
+            var game = _repository.Get(gameId);
+            if (game == null)
+                throw new InvalidOperationException("The game to be updated does not exist in the catalog.");
+            var updatedGame = game.UpdateDetails(vm);
+            _repository.Update(updatedGame);
+
+        }
+
         public void RemoveGame(Guid gameId)
         {
             if (_repository.Get(gameId) == null)

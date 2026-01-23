@@ -19,6 +19,12 @@ namespace GameTracker.Infrastructure
             _context.SaveChanges();
         }
 
+        public void Update(Game game)
+        {
+            _context.Games.Update(game);
+            _context.SaveChanges();
+        }   
+
         public void Remove(Guid gameId)
         {
             var game = _context.Games.SingleOrDefault(g => g.Id == gameId);

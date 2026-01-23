@@ -39,5 +39,10 @@ namespace GameTracker.Infrastructure
         {
             return _context.UserGames.Where(ug => ug.UserId == userId).ToList();
         }
+
+        public List<UserGame>? GetByGameId(Guid gameId)
+        {
+            return _context.UserGames.Where(ug => ug.GameId == gameId).ToList();
+        }
     }
 }

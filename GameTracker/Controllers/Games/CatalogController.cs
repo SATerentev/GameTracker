@@ -59,5 +59,33 @@ namespace GameTracker.Controllers.Games
 
             return RedirectToAction("Game", "Catalog", new { gameId = id});
         }
+
+        [HttpGet]
+        [Authorize(Roles ="Moderator,Admin")]
+        public IActionResult EditGame(Guid gameId)
+        {
+            var game = _gameCatalogService.GetGame(gameId);
+            var vm = new EditGameViewModel(game);
+
+            return View("~/Views/Games/EditGame.cshtml", vm);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Moderator,Admin")]
+        public IActionResult EditGame(EditGameViewModel vm)
+        {
+            _gameCatalogService.UpdateGame(vm.Id, vm);
+            return RedirectToAction("Game", "Catalog", new { gameId = vm.Id });
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Moderator,Admin")]
+        public IActionResult RemoveGame(Guid gameId)
+        {
+            _gameCatalogService.RemoveGame(gameId);
+            _userLibraryService.RemoveGameFromLibraries(gameId);
+
+            return RedirectToAction("Catalog", "Catalog");
+        }
     }
 }

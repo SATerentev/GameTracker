@@ -9,5 +9,6 @@ namespace GameTracker.Interfaces
         public void Update(UserGame userGame);
         public UserGame? GetByUserAndGameId(Guid userId, Guid gameId);
         public List<UserGame>? GetByUserId(Guid userId);
+        public List<UserGame>? GetByGameId(Guid gameId);
     }
 }

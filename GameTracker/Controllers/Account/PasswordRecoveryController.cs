@@ -26,6 +26,9 @@ namespace GameTracker.Controllers.Account
         [HttpPost]
         public IActionResult SendCode(RequestPasswordResetViewModel data)
         {
+            if (!ModelState.IsValid)
+                return View("~/Views/Account/RecoveryPasswordCode.cshtml", data);
+
             var user = _userAuthService.GetUserByEmail(data.Email);
 
             if (user != null && user.Status == Entity.Account.UserStatus.Active)
@@ -49,6 +52,9 @@ namespace GameTracker.Controllers.Account
         [HttpPost]
         public IActionResult RecoveryPasswordEmail(ConfirmRecoveryViewModel data)
         {
+            if (!ModelState.IsValid)
+                return View("~/Views/Account/RecoveryPasswordEmail.cshtml", data);
+
             string email = HttpContext.Session.GetString("recoveryEmail");
             string errorMessage;
 
@@ -73,6 +79,9 @@ namespace GameTracker.Controllers.Account
         [HttpPost]
         public IActionResult ResetPassword(ResetPasswordViewModel data)
         {
+            if (!ModelState.IsValid)
+                return View("~/Views/Account/ResetPassword.cshtml", data);
+
             var email = HttpContext.Session.GetString("recoveryEmail");
             var user = _userAuthService.GetUserByEmail(email);
 

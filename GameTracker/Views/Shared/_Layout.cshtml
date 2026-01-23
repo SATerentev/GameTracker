@@ -1,47 +1,52 @@
 ﻿<!DOCTYPE html>
-<html lang="ru">
-
-    @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    }
+<html lang="ru" data-bs-theme="dark">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - GameTracker</title>
-    <script type="importmap"></script>
-    <!---<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/GameTracker.styles.css" asp-append-version="true" /> -->
-    <link rel="stylesheet" href="@Url.Content("~/css/site.css")" />
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/GameTracker.styles.css" asp-append-version="true" />
 </head>
 
-<body>
-    <header>
-        <div class="navbar">
-            <a asp-action="Index" asp-controller="Home"><button class="main_button">GameTracker</button></a>
+<body class="bg-dark text-light">
+
+<header>
+    <nav class="navbar navbar-dark bg-dark border-bottom border-secondary px-3">
+        <a asp-action="Index" asp-controller="Home" class="navbar-brand fw-bold">
+            GameTracker
+        </a>
+
+        <div class="d-flex gap-2">
             @if (User.Identity.IsAuthenticated)
             {
-                <div>
-                    <a asp-action="Page" asp-controller="Profile"><button class="navbar_button">@User.Identity.Name</button></a>
-                </div>
+                <a asp-action="Page" asp-controller="Profile" class="btn btn-outline-light">
+                    @User.Identity.Name
+                </a>
             }
             else
             {
-                <div>
-                    <a asp-action="Login" asp-controller="Login"><button class="navbar_button">Вход</button></a>
-                    <a asp-action="Registration" asp-controller="Registration"><button class="navbar_button">Регистрация</button></a>
-                </div>
+                <a asp-action="Login" asp-controller="Login" class="btn btn-outline-light">
+                    Вход
+                </a>
+                <a asp-action="Registration" asp-controller="Registration" class="btn btn-outline-light">
+                    Регистрация
+                </a>
             }
         </div>
-    </header>
+    </nav>
+</header>
 
-    <main>
-        @RenderBody()
-    </main>
+<main class="container py-4">
+    @RenderBody()
+</main>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+@await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

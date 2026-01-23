@@ -1,25 +1,30 @@
 ﻿@model GameTracker.ViewModel.Games.UserGameLibraryViewModel
 
-@if (Model.UserGames != null)
+@if (Model.UserGames != null && Model.UserGames.Any())
 {
-    <div class="game-container">
+    <div class="row g-4">  <!-- g-4 для отступов между карточками -->
         @foreach (var game in Model.UserGames)
         {
-            <a asp-controller="Catalog"
-               asp-action="Game"
-               asp-route-gameId="@game.Id">
-                <div class="game_card">
-                    <img src="@game.ImageUrl" />
-
-                    <h2 class="game-name">@game.Name</h2>
-
-                    <p class="game-year">(@game.Year)</p>
-                </div>
-            </a>
+            <div class="col-md-4 col-sm-6 col-12">  <!-- 3 в ряд на десктопе, 2 на планшете, 1 на мобиле -->
+                <a asp-controller="Catalog"
+                   asp-action="Game"
+                   asp-route-gameId="@game.Id"
+                   class="text-decoration-none">  <!-- без подчёркивания ссылки -->
+                    <div class="card h-100 shadow-sm hover-shadow">  <!-- h-100 для равной высоты, hover-shadow для эффекта -->
+                        <img src="@game.ImageUrl" class="card-img-top" alt="@game.Name" />  <!-- alt для доступности -->
+                        <div class="card-body text-center">
+                            <h5 class="card-title">@game.Name</h5>
+                            <p class="card-text text-muted">(@game.Year)</p>  <!-- text-muted для серого цвета года -->
+                        </div>
+                    </div>
+                </a>
+            </div>
         }
     </div>
 }
 else
 {
-    <p>Ваша игровая библиотека пуста.</p>
+    <div class="alert alert-info mt-3 text-center" role="alert">  <!-- alert для выделения сообщения -->
+        Ваша игровая библиотека пуста.
+    </div>
 }
