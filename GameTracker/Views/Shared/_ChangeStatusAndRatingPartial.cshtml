@@ -29,6 +29,7 @@
             <label asp-for="Rating" class="form-label">Оценка</label>
             <select asp-for="Rating" class="form-select">
                 <option value="">-- Выберите оценку --</option>
+                <option value="0">Без оценки</option>
                 @for (int i = 1; i <= 10; i++)
                 {
                     <option value="@i">@i</option>

@@ -1,4 +1,7 @@
 ﻿@model GameTracker.ViewModel.Games.GamePageViewModel
+@{
+    ViewData["Title"] = Model.GameViewModel.Name;
+}
 
 <div class="game-page">
     <!-- Игра: изображение и основная информация -->
@@ -29,7 +32,14 @@
     {
         <div class="border-top mt-4 pt-3">
             <p><strong>Статус:</strong> @Model.GameViewModel.Status</p>
-            <p><strong>Оценка:</strong> @Model.GameViewModel.Rating</p>
+            @if (Model.GameViewModel.Rating == 0)
+            {
+                <p><strong>Оценка:</strong> Нет оценки</p>
+            }
+            else
+            {
+                <p><strong>Оценка:</strong>@Model.GameViewModel.Rating</p>
+            }
             <button class="btn btn-warning" onclick="openEditModal()">Изменить статус и оценку</button>
         </div>
 

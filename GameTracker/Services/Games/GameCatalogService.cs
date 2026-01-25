@@ -41,7 +41,24 @@ namespace GameTracker.Services.Games
                 throw new InvalidOperationException("The game to be updated does not exist in the catalog.");
             var updatedGame = game.UpdateDetails(vm);
             _repository.Update(updatedGame);
+        }
 
+        public void IncrementGamePopularity(Guid gameId)
+        {
+            var game = _repository.Get(gameId);
+            if (game == null)
+                throw new InvalidOperationException("The game to increment popularity does not exist in the catalog.");
+            game.ChangePopularity(1);
+            _repository.Update(game);
+        }
+
+        public void DecrementGamePopularity(Guid gameId)
+        {
+            var game = _repository.Get(gameId);
+            if (game == null)
+                throw new InvalidOperationException("The game to decrement popularity does not exist in the catalog.");
+            game.ChangePopularity(-1);
+            _repository.Update(game);
         }
 
         public void RemoveGame(Guid gameId)
@@ -62,9 +79,11 @@ namespace GameTracker.Services.Games
             return _repository.Get(name);
         }
 
-        public List<Game> GetAllGames()
+        public List<Game> GetAllGames(string search, string sort)
         {
-            return _repository.GetAll();
+            if (string.IsNullOrWhiteSpace(search))
+                return _repository.GetAll("", sort);
+            return _repository.GetAll(search, sort);
         }
     }
 }

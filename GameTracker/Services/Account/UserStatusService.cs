@@ -25,9 +25,9 @@ namespace GameTracker.Services.Account
             _userRepository.UpdateUser(user);
         }
 
-        public void MakeModerator(User user)
+        public void ChangeModeratorStatus(User user)
         {
-            user.MakeModerator();
+            user.ChangeModeratorStatus();
             _userRepository.UpdateUser(user);
         }
     }

@@ -20,9 +20,11 @@ namespace GameTracker.Controllers.Games
             _userLibraryService = userLibraryService;
         }
 
-        public IActionResult Catalog()
+        public IActionResult Catalog(string search, string sort)
         {
-            var games = _gameCatalogService.GetAllGames();
+            var games = _gameCatalogService.GetAllGames(search, sort);
+            ViewBag.Search = search;
+            ViewBag.Sort = sort;
             List<GameCardViewModel> cards = new List<GameCardViewModel>();
 
             foreach (var game in games)
@@ -55,6 +57,9 @@ namespace GameTracker.Controllers.Games
         [Authorize(Roles = "Moderator,Admin")]
         public IActionResult AddGame(AddGameToCatalogViewModel vm)
         {
+            if(!ModelState.IsValid)
+                return View("~/Views/Moder/AddNewGame.cshtml", vm);
+
             var id = _gameCatalogService.AddGame(vm);
 
             return RedirectToAction("Game", "Catalog", new { gameId = id});
@@ -74,6 +79,11 @@ namespace GameTracker.Controllers.Games
         [Authorize(Roles = "Moderator,Admin")]
         public IActionResult EditGame(EditGameViewModel vm)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("~/Views/Games/EditGame.cshtml", vm);
+            }
+
             _gameCatalogService.UpdateGame(vm.Id, vm);
             return RedirectToAction("Game", "Catalog", new { gameId = vm.Id });
         }

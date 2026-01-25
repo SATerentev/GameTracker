@@ -1,14 +1,24 @@
 ﻿@model GameTracker.ViewModel.MakeModeratorViewModel;
 
-<div class="admin_window">
-    <h1>Назначить модератором</h1>
-    <form asp-action="MakeModerator" asp-controller="Admin" method="post" novalidate>
-        <div asp-validation-summary="ModelOnly" style="color: red"></div>
-        <div class="form_label">
-            <label asp-for="Login">Введите логин пользователя</label>
-            <input asp-for="Login" />
-            <span asp-validation-for="Login" style="color: red"></span>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2>Назначить или снять модератора</h2>
+                </div>
+                <div class="card-body">
+                    <form asp-action="ChangeModeratorStatus" asp-controller="Admin" method="post" novalidate>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Login">Введите логин пользователя</label>
+                            <input class="form-control" asp-for="Login" />
+                            <span asp-validation-for="Login" style="color: red"></span>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Подтвердить</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <button class="button_submit" type="submit">Подтвердить</button>
-    </form>
+    </div>
 </div>

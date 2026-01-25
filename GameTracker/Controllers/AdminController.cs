@@ -23,7 +23,7 @@ namespace GameTracker.Controllers
         }
 
         [HttpPost]
-        public IActionResult MakeModerator(MakeModeratorViewModel userData)
+        public IActionResult ChangeModeratorStatus(MakeModeratorViewModel userData)
         {
             if (!ModelState.IsValid)
                 return View("~/Views/Admin/Index.cshtml", userData);
@@ -36,7 +36,7 @@ namespace GameTracker.Controllers
                 return View("~/Views/Admin/Index.cshtml", userData);
             }
 
-            _userStatusService.MakeModerator(user);
+            _userStatusService.ChangeModeratorStatus(user);
 
             return RedirectToAction("Index", "Admin");
         }

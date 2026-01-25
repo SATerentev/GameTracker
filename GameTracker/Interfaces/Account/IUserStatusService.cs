@@ -6,6 +6,6 @@ namespace GameTracker.Interfaces.Account
     {
         void DeleteUser(User user);
         void RecoveryUser(User user);
-        void MakeModerator(User user);
+        void ChangeModeratorStatus(User user);
     }
 }

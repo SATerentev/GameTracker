@@ -20,6 +20,7 @@ namespace GameTracker.Services.Games
         {
             var userGame = new UserGame(userId, gameId);
             _repository.Add(userGame);
+            _gameCatalogService.IncrementGamePopularity(gameId);
 
             return userGame;
         }
@@ -68,6 +69,7 @@ namespace GameTracker.Services.Games
             if (userGame == null)
                 throw new InvalidOperationException("Game not found in user's library.");
             _repository.Remove(userGame);
+            _gameCatalogService.DecrementGamePopularity(gameId);
         }
 
         public void RemoveGameFromLibraries(Guid gameId)

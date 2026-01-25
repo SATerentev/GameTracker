@@ -7,9 +7,11 @@ namespace GameTracker.Interfaces.Games
     {
         public Guid AddGame(AddGameToCatalogViewModel data);
         public void UpdateGame(Guid gameId, EditGameViewModel data);
+        public void IncrementGamePopularity(Guid gameId);
+        public void DecrementGamePopularity(Guid gameId);
         public void RemoveGame(Guid gameId);
         public Game? GetGame(Guid gameId);
         public Game? GetGame(string name);
-        public List<Game> GetAllGames();
+        public List<Game> GetAllGames(string search, string sort);
     }
 }

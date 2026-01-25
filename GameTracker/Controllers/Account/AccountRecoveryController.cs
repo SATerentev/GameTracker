@@ -21,6 +21,11 @@ namespace GameTracker.Controllers.Account
             _authenticationService = authenticationService;
         }
 
+        public ActionResult Index()
+        {
+            return View("~/Views/Account/AccountRecovery.cshtml");
+        }
+
         [HttpPost]
         public IActionResult Recovery()
         {

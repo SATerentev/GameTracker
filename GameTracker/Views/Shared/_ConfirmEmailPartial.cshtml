@@ -1,19 +1,31 @@
 ﻿@model GameTracker.ViewModel.Account.ConfirmEmailViewModel
 
-<div class="confirm_email_window">
-    <h2>Подтвердите ваш Email</h2>
-    <form asp-action="SendCode" asp-controller="Profile" method="post">
-        <button class="button_submit">Отправить код подтверждения</button>
-    </form>
-    <form asp-action="ConfirmEmail" asp-controller="Profile" method="post">
-        <div asp-validation-summary="ModelOnly" style="color: red"></div>
-        <div class="form_window">
-            <div class="form_label">
-                <label asp-for="Code">Код подтверждения</label>
-                <input asp-for="Code" />
-                <span asp-validation-for="Code" style="color: red"></span>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-header text-center">
+                    <h2>Подтвердите почту</h2>
+                </div>
+                <div class="card-body justify-content-center">
+                    <div class="mb-2">
+                        <form asp-action="SendCode" asp-controller="Profile" method="post">
+                            <button class="btn btn-primary">Отправить код подтверждения</button>
+                        </form>
+                    </div>
+                    <div class="mb-2">
+                        <form asp-action="ConfirmEmail" asp-controller="Profile" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="mb-2">
+                                <label class="form-label" asp-for="Code">Код подтверждения</label>
+                                <input class="form-control" asp-for="Code" />
+                                <span asp-validation-for="Code" class="text-danger"></span>
+                            </div>
+                            <button class="btn btn-success" type="submit">Подтвердить Email</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <button class="button_submit" type="submit">Подтвердить Email</button>
         </div>
-    </form>
+    </div>
 </div>

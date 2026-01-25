@@ -51,6 +51,12 @@ namespace GameTracker.Entity.Account
 
         public void Activate() => Status = UserStatus.Active;
 
-        public void MakeModerator() => Role = UserRole.Moderator;
+        public void ChangeModeratorStatus()
+        {
+            if (Role == UserRole.Moderator)
+                Role = UserRole.User;
+            else if (Role == UserRole.User)
+                Role = UserRole.Moderator;
+        }
     }
 }

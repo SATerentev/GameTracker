@@ -14,6 +14,7 @@ namespace GameTracker.Entity.Games
         public string DeveloperName { get; private set; }
         public string PublisherName { get; private set; }
         public string Genre { get; private set; }
+        public int Popularity { get; set; } 
         public DateTime ReleaseDate { get; private set; }
 
         // Надо будет сделать скриншоты. Вроде бы лучший вариант - сделать отдельную сущность Screenshot с полями Id, GameId, Url, но надо проверить.
@@ -22,6 +23,7 @@ namespace GameTracker.Entity.Games
             string publisherName, string genre, DateTime releaseDate)
         {
             Id = Guid.NewGuid();
+            Popularity = 0;
             Name = name;
             Link = link;
             Description = description;
@@ -46,6 +48,11 @@ namespace GameTracker.Entity.Games
             ReleaseDate = vm.ReleaseDate;
 
             return this;
+        }
+
+        public void ChangePopularity(int amount)
+        {
+            Popularity += amount;
         }
     }
 }

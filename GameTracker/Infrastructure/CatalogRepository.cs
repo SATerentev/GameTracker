@@ -46,9 +46,19 @@ namespace GameTracker.Infrastructure
             return _context.Games.SingleOrDefault(g => g.Name == name);
         }
 
-        public List<Game> GetAll()
+        public List<Game> GetAll(string search, string sort)
         {
-            return _context.Games.ToList();
+            switch (sort)
+            {
+                case "Name":
+                    return _context.Games.Where(g => g.Name.ToLower().Contains(search.ToLower())).OrderBy(g => g.Name).ToList();
+                case "Year":
+                    return _context.Games.Where(g => g.Name.ToLower().Contains(search.ToLower())).OrderByDescending(g => g.ReleaseDate).ToList();
+                case "YearRev":
+                    return _context.Games.Where(g => g.Name.ToLower().Contains(search.ToLower())).OrderBy(g => g.ReleaseDate).ToList();
+                default:
+                    return _context.Games.Where(g => g.Name.ToLower().Contains(search.ToLower())).OrderBy(g => g.Popularity).ToList();
+            }
         }
     }
 }

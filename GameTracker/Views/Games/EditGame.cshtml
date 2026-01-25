@@ -1,65 +1,81 @@
 ﻿@model GameTracker.ViewModel.Games.EditGameViewModel
 
-<form asp-action="EditGame" asp-controller="Catalog" method="post">
-    <div asp-validation-summary="ModelOnly" style="color: red"></div>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-center">
+                    <h2>Редактировать игру</h2>
+                </div>
+                <div class="card-body">
+                    <form asp-action="EditGame" asp-controller="Catalog" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    <input type="hidden" asp-for="Id" value="@Model.Id"/>
+                        <input type="hidden" asp-for="Id" value="@Model.Id" />
 
-    <div class="form_label">
-        <label asp-for="Name">Название игры: </label>
-        <input asp-for="Name" />
-        <span asp-validation-for="Name" style="color: red"></span>
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Name">Название игры: </label>
+                            <input class="form-control" asp-for="Name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Link">Ссылка на игру: </label>
+                            <input class="form-control" asp-for="Link" />
+                            <span asp-validation-for="Link" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Description">Описание игры: </label>
+                            <textarea class="form-control" asp-for="Description"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="ImageUrl">Ссылка на изображение: </label>
+                            <input class="form-control" asp-for="ImageUrl" />
+                            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="DeveloperName">Разработчик: </label>
+                            <input class="form-control" asp-for="DeveloperName" />
+                            <span asp-validation-for="DeveloperName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="PublisherName">Издатель: </label>
+                            <input class="form-control" asp-for="PublisherName" />
+                            <span asp-validation-for="PublisherName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Genre">Жанр: </label>
+                            <select class="form-control" asp-for="Genre">
+                                <option value="Action">Action</option>
+                                <option value="Adventure">Adventure</option>
+                                <option value="RPG">RPG</option>
+                                <option value="Shooter">Shooter</option>
+                                <option value="Strategy">Strategy</option>
+                            </select>
+                            <span asp-validation-for="Genre" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="ReleaseDate">Дата релиза: </label>
+                            <input class="form-control" asp-for="ReleaseDate" type="date" />
+                            <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+                        </div>
+
+                        <div>
+                            <button class="btn btn-primary" type="submit">Изменить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
-    <div class="form_label">
-        <label asp-for="Link">Ссылка на игру: </label>
-        <input asp-for="Link" />
-        <span asp-validation-for="Link" style="color: red"></span>
-    </div>
 
-    <div class="form_label">
-        <label asp-for="Description">Описание игры: </label>
-        <textarea asp-for="Description"></textarea>
-        <span asp-validation-for="Description" style="color: red"></span>
-    </div>
 
-    <div class="form_label">
-        <label asp-for="ImageUrl">Ссылка на изображение: </label>
-        <input asp-for="ImageUrl" />
-        <span asp-validation-for="ImageUrl" style="color: red"></span>
-    </div>
-
-    <div class="form_label">
-        <label asp-for="DeveloperName">Разработчик: </label>
-        <input asp-for="DeveloperName" />
-        <span asp-validation-for="DeveloperName" style="color: red"></span>
-    </div>
-
-    <div class="form_label">
-        <label asp-for="PublisherName">Издатель: </label>
-        <input asp-for="PublisherName" />
-        <span asp-validation-for="PublisherName" style="color: red"></span>
-    </div>
-
-    <div class="form_label">
-        <label asp-for="Genre">Жанр: </label>
-        <select asp-for="Genre">
-            <option value="Action">Action</option>
-            <option value="Adventure">Adventure</option>
-            <option value="RPG">RPG</option>
-            <option value="Shooter">Shooter</option>
-            <option value="Strategy">Strategy</option>
-        </select>
-        <span asp-validation-for="Genre" style="color: red"></span>
-    </div>
-
-    <div class="form_label">
-        <label asp-for="ReleaseDate">Дата релиза: </label>
-        <input asp-for="ReleaseDate" type="date" />
-        <span asp-validation-for="ReleaseDate" style="color: red"></span>
-    </div>
-
-    <div>
-        <button class="button_submit" type="submit">Изменить</button>
-    </div>
-</form>

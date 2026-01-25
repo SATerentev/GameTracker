@@ -18,11 +18,10 @@ namespace GameTracker.Controllers.Account
         private readonly IAuthenticationService _authenticationService;
         private readonly IAccountVerificationService _accountVerificationService;
         private readonly IUserLibraryService _userLibraryService;
-        private readonly IGameCatalogService _gameCatalogService;
 
         public ProfileController(IUserAuthService userAuthService, IUpdateProfileService updateProfile,
             IUserStatusService userStatusService, IAuthenticationService authenticationService, IAccountVerificationService accountVerificationService,
-            IUserLibraryService userLibraryService, IGameCatalogService gameCatalogService)
+            IUserLibraryService userLibraryService)
         {
             _userAuthService = userAuthService;
             _updateProfileService = updateProfile;
@@ -30,7 +29,6 @@ namespace GameTracker.Controllers.Account
             _authenticationService = authenticationService;
             _accountVerificationService = accountVerificationService;
             _userLibraryService = userLibraryService;
-            _gameCatalogService = gameCatalogService;
         }
 
         [Authorize]

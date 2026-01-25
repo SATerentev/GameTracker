@@ -8,6 +8,7 @@ namespace GameTracker.ViewModel.Games
         public string Name { get; set; }
         public string ImageUrl { get; set; }
         public int Year { get; set; }
+        public int Rating { get; set; }
 
         public GameCardViewModel(Game game)
         {
