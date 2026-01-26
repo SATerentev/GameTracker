@@ -7,6 +7,7 @@ using System.Security.Claims;
 
 namespace GameTracker.Controllers.Games
 {
+    [Authorize]
     public class GameController : Controller
     {
         private readonly IGameCatalogService _gameCatalogService;

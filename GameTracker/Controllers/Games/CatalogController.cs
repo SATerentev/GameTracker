@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GameTracker.Controllers.Games
 {
+    [Authorize]
     public class CatalogController : Controller
     {
         private readonly IGameCatalogService _gameCatalogService;

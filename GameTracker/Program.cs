@@ -41,6 +41,8 @@ namespace GameTracker
             builder.Services.AddScoped<IUserGameRepository, UserGameRepository>();
             builder.Services.AddScoped<IUserLibraryService, UserLibraryService>();
             builder.Services.AddScoped<IGameCatalogService, GameCatalogService>();
+            builder.Services.AddScoped<IGameRequestService, GameRequestService>();
+            builder.Services.AddScoped<IGameRequestRepository, GameRequestRepository>();
 
             builder.Services.AddScoped<IEmailSender, DEBUG_EmailSender>();
             builder.Services.AddScoped<IHashPasswordService, HashService>();

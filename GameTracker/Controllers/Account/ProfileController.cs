@@ -10,6 +10,7 @@ using System.Security.Claims;
 
 namespace GameTracker.Controllers.Account
 {
+    [Authorize]
     public class ProfileController : Controller
     {
         private readonly IUserAuthService _userAuthService;
@@ -31,7 +32,6 @@ namespace GameTracker.Controllers.Account
             _userLibraryService = userLibraryService;
         }
 
-        [Authorize]
         public IActionResult Page(string filter)
         {
             var id = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));

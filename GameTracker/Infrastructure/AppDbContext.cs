@@ -1,4 +1,5 @@
-﻿using GameTracker.Entity.Account;
+﻿using GameTracker.Entity;
+using GameTracker.Entity.Account;
 using GameTracker.Entity.Games;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,6 +11,7 @@ namespace GameTracker.Infrastructure
         public DbSet<User> Users { get; set; }
         public DbSet<Game> Games {get; set; }
         public DbSet<UserGame> UserGames { get; set; }
+        public DbSet<GameRequest> GameRequests { get; set; }
 
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }

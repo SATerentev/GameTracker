@@ -1,0 +1,60 @@
+﻿@model GameTracker.ViewModel.GameRequestViewModel
+@{
+    ViewData["Title"] = "Добавить новую игру";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3>Предложить новую игру</h3>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted text-center mb-4">
+                        Не нашёл игру в каталоге? Заполни форму ниже — мы добавим её как можно скорее!
+                    </p>
+
+                    <form asp-action="CreateGameRequest" asp-controller="GameRequests" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <!-- Название игры -->
+                        <div class="mb-4">
+                            <label asp-for="GameName" class="form-label fw-bold">Название игры *</label>
+                            <input asp-for="GameName" class="form-control form-control-lg" placeholder="Например: Elden Ring: Shadow of the Erdtree" autofocus required />
+                            <span asp-validation-for="GameName" class="text-danger"></span>
+                            <div class="form-text text-muted">
+                                Пиши максимально точно, как в Steam или другом магазине
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="GameLink" class="form-label fw-bold">Ссылка на игру</label>
+                            <input asp-for="GameLink" class="form-control form-control-lg" placeholder="https://store.steampowered.com/app/..." />
+                            <span asp-validation-for="GameLink" class="text-danger"></span>
+                            <div class="form-text text-muted">
+                                Steam, Epic Games, официальный сайт — любая ссылка поможет нам быстрее найти игру
+                            </div>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                Отправить заявку
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card-footer text-center text-muted">
+                    <small>Заявки рассматриваются в течение 1–3 дней. Спасибо, что помогаешь развивать каталог!</small>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <a asp-controller="Catalog" asp-action="Catalog" class="btn btn-outline-secondary">
+                    ← Вернуться в каталог
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

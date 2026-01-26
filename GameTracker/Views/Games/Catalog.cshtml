@@ -45,7 +45,7 @@
             </select>
             <button class="btn btn-primary" type="submit">Поиск</button>
         </div>
-        <p>Найдено игр: @Model.AllGamesQuantity</p>
+        <p class="mt-2">Найдено игр: @Model.AllGamesQuantity</p>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             @if (Model.Games.Count == 0)
             {
@@ -83,3 +83,7 @@
         }
     }
 </div>
+
+<a asp-action="CreateGameRequest" asp-controller="GameRequests">
+    Нет нужной игры?
+</a>

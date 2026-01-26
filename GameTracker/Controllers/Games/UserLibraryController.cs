@@ -1,10 +1,12 @@
 ﻿using GameTracker.Interfaces.Games;
 using GameTracker.ViewModel.Games;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace GameTracker.Controllers.Games
 {
+    [Authorize]
     public class UserLibraryController : Controller
     {
         private readonly IUserLibraryService _userLibraryService;

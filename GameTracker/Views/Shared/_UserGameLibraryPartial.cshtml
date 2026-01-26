@@ -2,7 +2,7 @@
 
 <div class="row g-4">
     <form asp-action="Page" asp-controller="Profile">
-        <select name="filter">
+        <select name="filter" class="form-select w-25">
             @if (Model.Filter == "all")
             {
                 <option value="all" selected>Все игры</option>
