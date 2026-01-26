@@ -12,6 +12,8 @@ namespace GameTracker.Interfaces.Games
         public void RemoveGame(Guid gameId);
         public Game? GetGame(Guid gameId);
         public Game? GetGame(string name);
-        public List<Game> GetAllGames(string search, string sort);
+        public List<Game> GetGames(string search, string sort, int page);
+        public int GetQuantityGames(string search);
+        public int GamesPerPage();
     }
 }

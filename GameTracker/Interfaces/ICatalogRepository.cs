@@ -9,6 +9,7 @@ namespace GameTracker.Interfaces
         public void Remove(Guid gameId);
         public Game? Get(Guid gameId);
         public Game? Get(string name);
-        public List<Game> GetAll(string search, string sort);
+        public List<Game> GetAll(string search, string sort, int page, int pageSize);
+        public int GetQuantity(string search);
     }
 }

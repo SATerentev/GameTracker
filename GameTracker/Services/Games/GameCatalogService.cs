@@ -8,6 +8,7 @@ namespace GameTracker.Services.Games
     public class GameCatalogService : IGameCatalogService
     {
         private readonly ICatalogRepository _repository;
+        private const int _gamesPerPage = 18;
 
         public GameCatalogService(ICatalogRepository repository)
         {
@@ -79,11 +80,20 @@ namespace GameTracker.Services.Games
             return _repository.Get(name);
         }
 
-        public List<Game> GetAllGames(string search, string sort)
+        public List<Game> GetGames(string search, string sort, int page)
         {
             if (string.IsNullOrWhiteSpace(search))
-                return _repository.GetAll("", sort);
-            return _repository.GetAll(search, sort);
+                return _repository.GetAll("", sort, page, _gamesPerPage);
+            return _repository.GetAll(search, sort, page, _gamesPerPage);
         }
+
+        public int GetQuantityGames(string search)
+        {
+            if (string.IsNullOrWhiteSpace(search)) 
+                return _repository.GetQuantity("");
+            return _repository.GetQuantity(search);
+        }
+
+        public int GamesPerPage() => _gamesPerPage;
     }
 }

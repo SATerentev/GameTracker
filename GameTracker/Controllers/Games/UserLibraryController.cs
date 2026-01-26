@@ -20,7 +20,7 @@ namespace GameTracker.Controllers.Games
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             _userLibraryService.AddGame(userId, gameId);
-            return RedirectToAction("Game", "Catalog", new { gameId });
+            return RedirectToAction("Game", "Game", new { gameId });
         }
 
         [HttpPost]
@@ -33,7 +33,7 @@ namespace GameTracker.Controllers.Games
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             _userLibraryService.ChangeGameStatus(userId, gameId, data.Status);
             _userLibraryService.RateGame(userId, gameId, data.Rating);
-            return RedirectToAction("Game", "Catalog", new { gameId });
+            return RedirectToAction("Game", "Game", new { gameId });
         }
 
         [HttpPost]
@@ -42,7 +42,7 @@ namespace GameTracker.Controllers.Games
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             _userLibraryService.RemoveUserGame(userId, gameId);
-            return RedirectToAction("Game", "Catalog", new { gameId });
+            return RedirectToAction("Game", "Game", new { gameId });
         }
     }
 }

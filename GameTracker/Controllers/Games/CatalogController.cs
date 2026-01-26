@@ -3,7 +3,6 @@ using GameTracker.Interfaces.Games;
 using GameTracker.ViewModel.Games;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace GameTracker.Controllers.Games
 {
@@ -20,11 +19,12 @@ namespace GameTracker.Controllers.Games
             _userLibraryService = userLibraryService;
         }
 
-        public IActionResult Catalog(string search, string sort)
+        public IActionResult Catalog(string search, string sort, int page)
         {
-            var games = _gameCatalogService.GetAllGames(search, sort);
+            var games = _gameCatalogService.GetGames(search, sort, page);
             ViewBag.Search = search;
             ViewBag.Sort = sort;
+            ViewBag.Page = page;
             List<GameCardViewModel> cards = new List<GameCardViewModel>();
 
             foreach (var game in games)
@@ -33,24 +33,11 @@ namespace GameTracker.Controllers.Games
                 cards.Add(card);
             }
 
-            var catalog = new CatalogViewModel(cards);
+            int allGamesQuantity = _gameCatalogService.GetQuantityGames(search);
+            int gamesPerPage = _gameCatalogService.GamesPerPage();
+            var catalog = new CatalogViewModel(cards, allGamesQuantity, gamesPerPage);
 
             return View("~/Views/Games/Catalog.cshtml", catalog);
-        }
-
-        public IActionResult Game(Guid gameId)
-        {
-            Console.WriteLine($"GAME ID FROM ROUTE = {gameId}");
-            var game = _gameCatalogService.GetGame(gameId);
-            var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var user = _userAuthService.GetUser(userId);
-
-            if (user == null) return RedirectToAction("Login", "Account");
-
-            var userGame = _userLibraryService.GetUserGame(user.Id, game.Id);
-            var gameVm = new GameViewModel(game, userGame);
-            var vm = new GamePageViewModel(gameVm);
-            return View("~/Views/Games/Game.cshtml", vm);
         }
 
         [HttpPost]
@@ -62,30 +49,7 @@ namespace GameTracker.Controllers.Games
 
             var id = _gameCatalogService.AddGame(vm);
 
-            return RedirectToAction("Game", "Catalog", new { gameId = id});
-        }
-
-        [HttpGet]
-        [Authorize(Roles ="Moderator,Admin")]
-        public IActionResult EditGame(Guid gameId)
-        {
-            var game = _gameCatalogService.GetGame(gameId);
-            var vm = new EditGameViewModel(game);
-
-            return View("~/Views/Games/EditGame.cshtml", vm);
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "Moderator,Admin")]
-        public IActionResult EditGame(EditGameViewModel vm)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View("~/Views/Games/EditGame.cshtml", vm);
-            }
-
-            _gameCatalogService.UpdateGame(vm.Id, vm);
-            return RedirectToAction("Game", "Catalog", new { gameId = vm.Id });
+            return RedirectToAction("Game", "Game", new { gameId = id});
         }
 
         [HttpPost]

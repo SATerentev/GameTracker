@@ -8,7 +8,7 @@
                     <h2>Редактировать игру</h2>
                 </div>
                 <div class="card-body">
-                    <form asp-action="EditGame" asp-controller="Catalog" method="post">
+                    <form asp-action="EditGame" asp-controller="Game" method="post">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                         <input type="hidden" asp-for="Id" value="@Model.Id" />

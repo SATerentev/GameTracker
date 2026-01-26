@@ -13,12 +13,12 @@ namespace GameTracker.Services
 
         public void SendRecoveryCode(string email, string code)
         {
-            _emailSender.SendEmail(email, "Password Recovery", $"Your password recovery code is: {code}");
+            _emailSender.SendEmail(email, "Password+Recovery", $"Your+password+recovery+code+is:+{code}");
         }
 
         public void SendConfirmationCode(string email, string code)
         {
-            _emailSender.SendEmail(email, "Account Confirmation", $"Your confirmation code is: {code}");
+            _emailSender.SendEmail(email, "Account+Confirmation", $"Your+confirmation+code+is:+{code}");
         }
     }
 }

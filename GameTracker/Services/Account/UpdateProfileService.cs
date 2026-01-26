@@ -37,7 +37,16 @@ namespace GameTracker.Services.Account
         {
             isActive = false;
 
-            if (_accountVerificationService.ConfirmActivationCode(user, confirmationCode))
+            //if (_accountVerificationService.ConfirmActivationCode(user, confirmationCode))
+            //{
+            //    user.Activate();
+            //    _userRepository.UpdateUser(user);
+            //    isActive = true;
+            //}
+
+            // TODO: Когда будет сервис отправки писем, убрать заглушку ниже и раскомментировать проверку кода активации выше
+
+            if (confirmationCode == "00000")
             {
                 user.Activate();
                 _userRepository.UpdateUser(user);

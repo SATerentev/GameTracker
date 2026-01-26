@@ -46,19 +46,29 @@ namespace GameTracker.Infrastructure
             return _context.Games.SingleOrDefault(g => g.Name == name);
         }
 
-        public List<Game> GetAll(string search, string sort)
+        
+        public List<Game> GetAll(string search, string sort, int page, int pageSize)
         {
             switch (sort)
             {
                 case "Name":
-                    return _context.Games.Where(g => g.Name.ToLower().Contains(search.ToLower())).OrderBy(g => g.Name).ToList();
+                    return _context.Games.Where(g => EF.Functions.Like(g.Name, $"%{search}%"))
+                        .OrderBy(g => g.Name).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
                 case "Year":
-                    return _context.Games.Where(g => g.Name.ToLower().Contains(search.ToLower())).OrderByDescending(g => g.ReleaseDate).ToList();
+                    return _context.Games.Where(g => EF.Functions.Like(g.Name, $"%{search}%"))
+                        .OrderByDescending(g => g.ReleaseDate).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
                 case "YearRev":
-                    return _context.Games.Where(g => g.Name.ToLower().Contains(search.ToLower())).OrderBy(g => g.ReleaseDate).ToList();
+                    return _context.Games.Where(g => EF.Functions.Like(g.Name, $"%{search}%"))
+                        .OrderBy(g => g.ReleaseDate).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
                 default:
-                    return _context.Games.Where(g => g.Name.ToLower().Contains(search.ToLower())).OrderBy(g => g.Popularity).ToList();
+                    return _context.Games.Where(g => EF.Functions.Like(g.Name, $"%{search}%"))
+                        .OrderByDescending(g => g.Popularity).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
             }
+        }
+
+        public int GetQuantity(string search)
+        {
+            return _context.Games.Count(g => EF.Functions.Like(g.Name, $"%{search}%"));
         }
     }
 }

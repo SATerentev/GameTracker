@@ -10,7 +10,7 @@
                 <div class="card-body justify-content-center">
                     <div class="mb-2">
                         <form asp-action="SendCode" asp-controller="Profile" method="post">
-                            <button class="btn btn-primary">Отправить код подтверждения</button>
+                            <button onclick="showCode()" class="btn btn-primary">Отправить код подтверждения</button>
                         </form>
                     </div>
                     <div class="mb-2">
@@ -29,3 +29,9 @@
         </div>
     </div>
 </div>
+
+<script>
+        function showCode() {
+        alert("К сожалению, я не нашел бесплатных сервисов для отправки писем. Поэтому вводите код: 00000");
+    }
+</script>

@@ -6,7 +6,7 @@
         @foreach (var game in Model.UserGames)
         {
             <div class="col-md-4 col-sm-6 col-12">  <!-- 3 в ряд на десктопе, 2 на планшете, 1 на мобиле -->
-                <a asp-controller="Catalog"
+                <a asp-controller="Game"
                    asp-action="Game"
                    asp-route-gameId="@game.Id"
                    class="text-decoration-none">  <!-- без подчёркивания ссылки -->
