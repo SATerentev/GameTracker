@@ -29,8 +29,8 @@ namespace GameTracker.Entity.Games
 
         public void UpdateUserRating(int rating)
         {
-            if (rating < 1 || rating > 10)
-                throw new ArgumentOutOfRangeException(nameof(rating), "Rating must be between 1 and 10.");
+            if (rating < 0 || rating > 10)
+                throw new ArgumentOutOfRangeException(nameof(rating), "Rating must be between 0 and 10.");
 
             UserRating = rating;
         }

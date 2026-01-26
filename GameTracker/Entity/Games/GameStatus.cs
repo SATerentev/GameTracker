@@ -4,7 +4,7 @@ public enum GameStatus
 {
     Nothing,
     Completed,
-    InProgress,
+    Playing,
     Planned,
     Dropped
 }

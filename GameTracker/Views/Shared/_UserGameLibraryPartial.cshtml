@@ -1,30 +1,72 @@
 ﻿@model GameTracker.ViewModel.Games.UserGameLibraryViewModel
 
-@if (Model.UserGames != null && Model.UserGames.Any())
-{
-    <div class="row g-4">  <!-- g-4 для отступов между карточками -->
-        @foreach (var game in Model.UserGames)
-        {
-            <div class="col-md-4 col-sm-6 col-12">  <!-- 3 в ряд на десктопе, 2 на планшете, 1 на мобиле -->
-                <a asp-controller="Game"
-                   asp-action="Game"
-                   asp-route-gameId="@game.Id"
-                   class="text-decoration-none">  <!-- без подчёркивания ссылки -->
-                    <div class="card h-100 shadow-sm hover-shadow">  <!-- h-100 для равной высоты, hover-shadow для эффекта -->
-                        <img src="@game.ImageUrl" class="card-img-top" alt="@game.Name" />  <!-- alt для доступности -->
-                        <div class="card-body text-center">
-                            <h5 class="card-title">@game.Name</h5>
-                            <p class="card-text text-muted">(@game.Year)</p>  <!-- text-muted для серого цвета года -->
-                        </div>
+<div class="row g-4">
+    <form asp-action="Page" asp-controller="Profile">
+        <select name="filter">
+            @if (Model.Filter == "all")
+            {
+                <option value="all" selected>Все игры</option>
+            }
+            else
+            {
+                <option value="all">Все игры</option>
+            }
+            @if (Model.Filter == "playing")
+            {
+                <option value="playing" selected>Сейчас играю</option>
+            }
+            else
+            {
+                <option value="playing">Сейчас играю</option>
+            }
+            @if (Model.Filter == "completed")
+            {
+                <option value="completed" selected>Завершил</option>
+            }
+            else
+            {
+                <option value="completed">Завершил</option>
+            }
+            @if (Model.Filter == "planned")
+            {
+                <option value="planned" selected>Отложил</option>
+            }
+            else
+            {
+                <option value="planned">Отложил</option>
+            }
+            @if (Model.Filter == "dropped")
+            {
+                <option value="dropped" selected>Бросил</option>
+            }
+            else
+            {
+                <option value="dropped">Бросил</option>
+            }
+        </select>
+        <button class="btn btn-primary mt-2" type="submit">Фильтровать</button>
+    </form>
+
+    @foreach (var game in Model.UserGames)
+    {
+        <div class="col-md-4 col-sm-6 col-12">
+            <a asp-controller="Game"
+               asp-action="Game"
+               asp-route-gameId="@game.Id"
+               style="text-decoration: none">
+                <div class="card h-100 shadow-sm hover-shadow">
+                    <img src="@game.ImageUrl" class="card-img-top" alt="@game.Name" />
+                    <div class="card-body text-center">
+                        <h5 class="card-title">@game.Name</h5>
+                        <p class="card-text text-muted">(@game.Year)</p>
                     </div>
-                </a>
-            </div>
-        }
-    </div>
-}
-else
+                </div>
+            </a>
+        </div>
+    }
+</div>
+
+@if (@Model.UserGames.Count == 0)
 {
-    <div class="alert alert-info mt-3 text-center" role="alert">  <!-- alert для выделения сообщения -->
-        Ваша игровая библиотека пуста.
-    </div>
+    <h3 class="mt-3">В вашей библиотеке нет игр с выбранным статусом.</h3>
 }

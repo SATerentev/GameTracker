@@ -9,11 +9,11 @@ namespace GameTracker.ViewModel.Account
         public ConfirmEmailViewModel ConfirmEmail { get; set; }
         public UserGameLibraryViewModel UserGames { get; set; }
 
-        public AccountPageViewModel(AccountDataViewModel accountDataViewModel, ConfirmEmailViewModel confirmEmailViewModel, List<Game> userGames)
+        public AccountPageViewModel(AccountDataViewModel accountDataViewModel, ConfirmEmailViewModel confirmEmailViewModel, UserGameLibraryViewModel userGameLibraryViewModel)
         {
             AccountData = accountDataViewModel;
             ConfirmEmail = confirmEmailViewModel;
-            UserGames = new UserGameLibraryViewModel(userGames);
+            UserGames = userGameLibraryViewModel;
         }
     }
 }

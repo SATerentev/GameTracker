@@ -29,9 +29,10 @@ namespace GameTracker.Services.Games
         {
             return _repository.GetByUserAndGameId(userId, gameId);
         }
-        public List<Game> GetUserLibrary(Guid userId)
+
+        public List<Game> GetUserLibrary(Guid userId, string filter)
         {
-            var userGames = _repository.GetByUserId(userId);
+            var userGames = _repository.GetByUserId(userId, filter);
             var games = new List<Game>();
 
             foreach (var userGame in userGames)

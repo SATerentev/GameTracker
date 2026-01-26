@@ -10,6 +10,6 @@ namespace GameTracker.Interfaces.Games
         public void ChangeGameStatus(Guid userId, Guid gameId, GameStatus status);
         public void RateGame(Guid userId, Guid gameId, int rating);
         public UserGame? GetUserGame(Guid userId, Guid gameId);
-        public List<Game> GetUserLibrary(Guid userId);
+        public List<Game> GetUserLibrary(Guid userId, string filter);
     }
 }

@@ -28,7 +28,7 @@ namespace GameTracker.Controllers.Games
         public IActionResult ChangeStatusAndRate(Guid gameId, GameRateAndStatusViewModel data)
         {
             if (!ModelState.IsValid)
-                return RedirectToAction("Game", "Catalog", new { gameId });
+                return RedirectToAction("Game", "Game", new { gameId });
 
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             _userLibraryService.ChangeGameStatus(userId, gameId, data.Status);

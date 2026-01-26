@@ -68,26 +68,29 @@
             </form>
         </div>
     }
+</div>
 
-    <!-- Возможность для модераторов/администраторов удалить или редактировать игру -->
-    @if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
-    {
-        <div class="mt-4">
-            <form asp-action="RemoveGame"
-                  asp-controller="Catalog"
-                  method="post">
-                <input type="hidden" name="gameId" value="@Model.GameViewModel.Id" />
-                <button type="submit" class="btn btn-danger">Удалить игру с сайта</button>
-            </form>
+<div class="container mt-5 flex-row">
+    <div class="border p-3">
+        @if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+        {
+            <div class="flex-row">
+                <form asp-action="RemoveGame"
+                      asp-controller="Catalog"
+                      method="post">
+                    <input type="hidden" name="gameId" value="@Model.GameViewModel.Id" />
+                    <button type="submit" class="btn btn-danger">Удалить игру с сайта</button>
+                </form>
 
-            <form asp-action="EditGame"
-                  asp-controller="Game"
-                  method="get">
-                <input type="hidden" name="gameId" value="@Model.GameViewModel.Id" />
-                <button type="submit" class="btn btn-primary mt-4">Редактировать игру</button>
-            </form>
-        </div>
-    }
+                <form asp-action="EditGame"
+                      asp-controller="Game"
+                      method="get">
+                    <input type="hidden" name="gameId" value="@Model.GameViewModel.Id" />
+                    <button type="submit" class="btn btn-primary mt-4">Редактировать игру</button>
+                </form>
+            </div>
+        }
+    </div>
 </div>
 
 <script>

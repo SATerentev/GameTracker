@@ -5,8 +5,9 @@ namespace GameTracker.ViewModel.Games
     public class UserGameLibraryViewModel
     {
         public List<GameCardViewModel> UserGames { get; set; }
-        
-        public UserGameLibraryViewModel(List<Game> userGames)
+        public string Filter { get; set; }
+
+        public UserGameLibraryViewModel(List<Game> userGames, string filter)
         {
             UserGames = new List<GameCardViewModel>();
 
@@ -14,6 +15,8 @@ namespace GameTracker.ViewModel.Games
             {
                 UserGames.Add(new GameCardViewModel(game));
             }
+
+            Filter = filter;
         }
     }
 }

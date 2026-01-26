@@ -65,21 +65,21 @@
                     </a>
                 </div>
             }
-
-            <div class="mt-3 flex-row">
-                <p>Page</p>
-                @for (int i = 1; i <= (Model.AllGamesQuantity / Model.GamesPerPage) + 1; i++)
-                {
-                    if (i == ViewBag.Page)
-                    {
-                        <a asp-action="Catalog" asp-controller="Catalog" asp-route-page="@i" asp-route-search="@ViewBag.Search" asp-route-sort="@ViewBag.Sort" class="btn btn-primary mx-1 my-1">@i</a>
-                    }
-                    else
-                    {
-                        <a asp-action="Catalog" asp-controller="Catalog" asp-route-page="@i" asp-route-search="@ViewBag.Search" asp-route-sort="@ViewBag.Sort" class="btn btn-outline-primary mx-1 my-1">@i</a>
-                    }
-                }
-            </div>
         </div>
     </form>
+</div>
+
+<div class="mt-3 flex-row">
+    <p>Page</p>
+    @for (int i = 1; i <= (Model.AllGamesQuantity / Model.GamesPerPage) + 1; i++)
+    {
+        if (i == ViewBag.Page)
+        {
+            <a asp-action="Catalog" asp-controller="Catalog" asp-route-page="@i" asp-route-search="@ViewBag.Search" asp-route-sort="@ViewBag.Sort" class="btn btn-primary mx-1 my-1">@i</a>
+        }
+        else
+        {
+            <a asp-action="Catalog" asp-controller="Catalog" asp-route-page="@i" asp-route-search="@ViewBag.Search" asp-route-sort="@ViewBag.Sort" class="btn btn-outline-primary mx-1 my-1">@i</a>
+        }
+    }
 </div>

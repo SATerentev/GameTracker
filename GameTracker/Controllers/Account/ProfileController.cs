@@ -32,13 +32,13 @@ namespace GameTracker.Controllers.Account
         }
 
         [Authorize]
-        public IActionResult Page()
+        public IActionResult Page(string filter)
         {
             var id = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var user = _userAuthService.GetUser(id);
-            var userGames = _userLibraryService.GetUserLibrary(user.Id);
-
             if (user == null) return RedirectToAction("Logout", "Account");
+            var userGames = _userLibraryService.GetUserLibrary(user.Id, filter);
+
 
             var accountPageViewModel = new AccountDataViewModel(
                 user.Nickname,
@@ -52,7 +52,7 @@ namespace GameTracker.Controllers.Account
                 (
                     accountPageViewModel,
                     new ConfirmEmailViewModel(),
-                    userGames
+                    new ViewModel.Games.UserGameLibraryViewModel(userGames, filter)
                 );
 
             return View("~/Views/Account/Page.cshtml", vm);

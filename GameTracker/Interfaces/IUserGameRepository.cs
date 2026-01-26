@@ -8,7 +8,7 @@ namespace GameTracker.Interfaces
         public void Remove(UserGame userGame);
         public void Update(UserGame userGame);
         public UserGame? GetByUserAndGameId(Guid userId, Guid gameId);
-        public List<UserGame>? GetByUserId(Guid userId);
+        public List<UserGame>? GetByUserId(Guid userId, string filter);
         public List<UserGame>? GetByGameId(Guid gameId);
     }
 }

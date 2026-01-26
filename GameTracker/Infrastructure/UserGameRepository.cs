@@ -35,9 +35,21 @@ namespace GameTracker.Infrastructure
             return _context.UserGames.SingleOrDefault(ug => ug.UserId == userId && ug.GameId == gameId);
         }
 
-        public List<UserGame>? GetByUserId(Guid userId)
+        public List<UserGame>? GetByUserId(Guid userId, string filter)
         {
-            return _context.UserGames.Where(ug => ug.UserId == userId).ToList();
+            switch (filter)
+            {
+                case "playing":
+                    return _context.UserGames.Where(ug => ug.UserId == userId && ug.Status == GameStatus.Playing).ToList();
+                case "completed":
+                    return _context.UserGames.Where(ug => ug.UserId == userId && ug.Status == GameStatus.Completed).ToList();
+                case "planned":
+                    return _context.UserGames.Where(ug => ug.UserId == userId && ug.Status == GameStatus.Planned).ToList();
+                case "dropped":
+                    return _context.UserGames.Where(ug => ug.UserId == userId && ug.Status == GameStatus.Dropped).ToList();
+                default:
+                    return _context.UserGames.Where(ug => ug.UserId == userId).ToList();
+            }
         }
 
         public List<UserGame>? GetByGameId(Guid gameId)
